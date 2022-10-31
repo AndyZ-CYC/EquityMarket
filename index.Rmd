@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: "Equity Market Research"
+author: "Yaoyuan Zhang, Zimu An"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
