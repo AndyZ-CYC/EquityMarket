@@ -23,7 +23,7 @@
 <meta name="author" content="Yaoyuan Zhang, Zimu An" />
 
 
-<meta name="date" content="2022-10-31" />
+<meta name="date" content="2022-11-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -110,9 +110,39 @@
 <h1><span class="header-section-number">Chapter 2</span> Proposal<a href="proposal.html#proposal" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="research-topic" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Research topic<a href="proposal.html#research-topic" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>February 19th, 2020, marked the stock market peak before the outbreak of the COVID-19 pandemic triggered a freefall in share prices. In the year since, the world has changed drastically, transforming our lives, economies, and the fortunes of our businesses—an unfolding journey reflected in the ups and downs of share prices. The global economies, industries, and societies have taken a tremendous hit due to the pandemic, not to mention the daily life of ordinary citizens. The equity market, as one of the most significant indicators of the economy, also reacted to the hits significantly and became highly volatile.</p>
+<p>This phenomenon provides insight into investigating the pandemic’s impact on the world economy in a data-driven, chronological aspect. As a great representative of the performance of the markets, the equity market indices become our focus for this research project. We will try to explore the trends and impacts of the pandemic on the markets in different regions by looking at their general stock indices. After that, we will dive deep and emphasize the effects of the pandemic on each specific industry in the U.S.</p>
 </div>
 <div id="data-availability" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Data availability<a href="proposal.html#data-availability" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Since we wish to observe the impact of the pandemic on the equity market as a whole,
+we use stock market indices as the data to work with. To acquire these data,
+we use <a href="https://finance.yahoo.com/">Yahoo Finance</a> as a reliable source for these indices.
+Yahoo Finance contains an impressive range of data, including market indices for
+over 50 regions and all sector indices for the US market. The market information
+on Yahoo Finance updates range from real-time to at most 30 minutes. Provided by
+ICE data service, these data of global markets and sector markets are accurate
+and up-to-date.</p>
+<p>To acquire the data we need, we found a package in R named
+<a href="https://cran.r-project.org/web/packages/tidyquant/index.html">tidyquant</a>. With
+this package, we are able to acquire the market indices as a tibble object. For
+the stock price along, we can obtain variables including the open, high, low, close,
+volume, and the adjusted prices for the market index across decades of years.</p>
+<p>As for the selection of indices, we separate our project into two parts:</p>
+<ul>
+<li>Observation of the Global Markets</li>
+<li>Observation of the Sectors</li>
+</ul>
+<p>For the first part of our project, we decide to choose one index for each region
+included in the Yahoo Finance database as the representation of the local market.
+For example, we use S&amp;P 500 to represent the US equity market, Nikkei 500 to
+describe the Japanese market, and the SSE Composite index for the Chinese market.</p>
+<p>As for the second part, since we wish to observe the significance of the impact on
+different industries, we follow the <a href="https://www.spglobal.com/marketintelligence/en/documents/112727-gics-mapbook_2018_v3_letter_digitalspreads.pdf">11 stock market sectors according to the Global
+Industry Classification Standard</a>. We chose to focus on the US equity
+market and selected to adopt the sector indices of S&amp;P 500.</p>
+<p>Lastly, for any potential needs, we may also collect information for specific stocks
+from Yahoo Finance as supplements for our research.</p>
 
 </div>
 </div>
