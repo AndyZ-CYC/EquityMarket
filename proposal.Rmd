@@ -2,5 +2,9 @@
 
 ## Research topic
 
+February 19th, 2020, marked the stock market peak before the outbreak of the COVID-19 pandemic triggered a freefall in share prices. In the year since, the world has changed drastically, transforming our lives, our economies, and the fortunes of our businesses—an unfolding journey that is reflected in the ups and downs of share prices. The global economies, industries and societies have definitely taken a tremendous hit due to the pandemic, not to mention the daily life of normal citizens. As first year graduate Data Science students, we are desperately trying to find summer internships in which the process turns out to be much more difficult than previous years, with the unicorn companies raising the bar and freezing one after another.
+
+This impasse lends us an insight of investigating the relationship, or more specifically the impact of the pandemic on world indices in a data driven, chronological aspect. We will first try to explore the trends and impact on different countries by looking at their (?), and we will dive deep and focus on each specific industry in the U.S.
+
 ## Data availability
 
