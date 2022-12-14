@@ -1,8 +1,69 @@
 # Data 
 
+```{r, include=FALSE, warning=FALSE}
+library(tidyquant)
+library(tidyverse)
+library(fpp3)
+library(ggplot2)
+```
+
 ## Sources
+
+```{r}
+start_date <- "2010-01-01"
+end_date <- "2021-12-31"
+```
+
+
+```{r}
+# Data Set 1
+tickers_1 = c("^GSPC", "^N225", "000001.SS")
+data_reg <- tq_get(tickers_1, 
+                   get = "stock.prices", 
+                   from = start_date, 
+                   to = end_date)
+```
+
+```{r}
+# Data Set 2
+# order: IT, Health Care, Financials, Consumer Discretionary, Communication Services
+#        Industrial, Consumer Staples, Energy, Utilities, Real Estate, Materials
+tickers_2 = c("^SP500-45", "^SP500-35", "^SP500-40", 
+              "^SP500-25", "^SP500-50", "^SP500-20", 
+              "^SP500-30", "^GSPE", "^SP500-55", 
+              "^SP500-60", "^SP500-15")
+data_sec <- tq_get(tickers_2, 
+                   get = "stock.prices", 
+                   from = start_date, 
+                   to = end_date)
+```
 
 ## Cleaning / transformation
 
+#### Part 1
+
+```{r}
+# Change tickers to names
+data_reg |> 
+  mutate(symbol = 
+           case_when(
+             (symbol == "^GSPC") ~ "S&P_500", 
+             (symbol == "^N225") ~ "Nikkei_225", 
+             TRUE ~ "SSE_Composite"
+           )) |>
+  drop_na() -> data_reg
+```
+
+
+```{r}
+# Standardize (take log) - for boxplot
+data_reg |>
+  mutate(log_price = log(adjusted)) |>
+  select(date, symbol, log_price) -> adj_price_std
+```
+
+#### Part 2
+
 ## Missing value analysis
 
+(mention gap between dates - weekends and holidays)

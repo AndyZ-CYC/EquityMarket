@@ -1,1 +1,23 @@
 # Results
+
+## Part 1
+
+#### Boxplot
+
+```{r}
+data_reg |>
+  filter_all(any_vars(is.na(.)))
+```
+
+```{r}
+adj_price_std
+```
+
+
+```{r}
+adj_price_std |>
+  ggplot(aes(x = reorder(symbol, log_price, median), y = log_price)) + 
+  geom_boxplot() + 
+  coord_flip()
+```
+
