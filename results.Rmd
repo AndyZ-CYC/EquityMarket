@@ -2,7 +2,11 @@
 
 ## Part 1
 
-#### 1 - Boxplot
+#### 1. Boxplot
+
+One of the most significant statistics of an index is its volatility. For the very 
+beginning, we would like to observe the volatilities of the three indices by creating 
+a boxplot: 
 
 ```{r}
 adj_price_minmax |>
@@ -14,6 +18,11 @@ adj_price_minmax |>
   labs(y = "normalized prices", x = "Index Name")
 ```
 
+From the boxplot, we can observe that the SSE Composite is a bit more volatile with min 
+and max values spanning the entire range from 0 to 1. However, the IQR of these three 
+indices are actually quite similar, indicating that there is not an enormous difference 
+in volatility among the three markets. 
+
 ```{r}
 adj_price_minmax |>
   filter(date >= "2020-01-01") |>
@@ -24,13 +33,24 @@ adj_price_minmax |>
   labs(y = "Normalized prices", x = "Index Name")
 ```
 
-#### 2 - Candlesticks
+However, when we focus on the markets during the pandemic, we can observe that the 
+SSE Composite becomes more volatile with a significantly larger IQR comparing with 
+the other two indices. Meanwhile, we also noticed that, although the S&P 500 and the Nikkei 
+225 seem to be less volatile, both of these two indices have significantly more amount 
+of outliers. While the Nikkei 225 index has both large and small outliers, all of the outliers 
+of S&P 500 are smaller than $Q_1 - 1.5*IQR$. 
 
+#### 2. Candlestick Charts
+
+To further observe the trends of the indices during the pandemic, we adapted a popular type 
+of diagram when it comes to the stock analysis, the Candlestick Charts. For the purpose of 
+tidyness, we created a function to produce the candlestick chart for the given index and 
+time range. 
 
 ```{r}
 plot_candlestick <- function(target_symbol, from, to) {
   data_reg |>
-    filter(date >= from & date < to) |>
+    filter(date >= from & date <= to) |>
     filter(symbol == target_symbol) |>
     mutate(GreenRed = case_when(
       (open-close > 0) ~ "Red", 
@@ -53,17 +73,44 @@ plot_candlestick <- function(target_symbol, from, to) {
 ```
 
 ```{r, fig.width=12, fig.height=7}
-plot_candlestick("S&P_500", "2020-01-01", "2021-01-01")
+plot_candlestick("S&P_500", "2020-01-01", "2020-12-31")
 ```
 
+For the candlestick chart of S&P 500 index in 2020, we can easily notice the drop 
+from approximately the end of February to end of March, which is when the pandemic 
+hitted. The market shrank by approximately thirty percent within a month. If we observe 
+the chart carefully, we can notice that there exist noticable gaps between some trading 
+days, indicating that the market was continuously impacted even after it was close. The 
+daily "candles" during this period were also significantly longer than the others, indicating 
+a volatile market. However, we can notice that the market recovered gradually in the 
+following six months and continued with a growing trend. 
 
 ```{r, fig.width=12, fig.height=7}
-plot_candlestick("Nikkei_225", "2020-01-01", "2021-01-01")
+plot_candlestick("Nikkei_225", "2020-01-01", "2020-12-31")
 ```
 
+Similar with the S&P 500, the Japanese market represented by Nikkei 225 index also 
+took a significant impact from Covid-19 during February and March in 2020. The number of 
+green bars in this chart during the pandemic period are even less than the ones in the 
+previous chart of S&P 500 index. However, the average length of each "candle" of Nikkei 225 
+is shorter than the one of S&P 500. This shows that the Japanese market shrank in a more 
+stable path. In addition, the price of the index recovered from the impact within only 
+approximately 4 month, which is shorter than the US market. 
+
 ```{r, fig.width=12, fig.height=7}
-plot_candlestick("SSE_Composite", "2020-01-01", "2021-01-01")
+plot_candlestick("SSE_Composite", "2020-01-01", "2020-12-31")
 ```
+
+SSE Composite index, on the other side, has a very different trend comparing with 
+the other two indices. Although there is a drop in price between February and March, 
+the market rebounded back to previous prices during the February. After April, the 
+market gradually has recovered with an upward trend until July, when a significant 
+boost happened to the local market. This boost might be caused by the local policy of 
+opening up after the quarantines. Overall, the trend of SSE Composite is different, and 
+the volatility of the Chinese market was increased due to the potential stimulation of 
+policies. 
+
+#### 3. Time Series Line charts
 
 ```{r, fig.width=12, fig.height=7}
 adj_price_minmax |>
@@ -73,8 +120,8 @@ adj_price_minmax |>
   geom_line(lwd = 1) + 
   facet_wrap(~symbol, nrow = 3, scales = "free_y") + 
   geom_smooth(method = "loess", span = .25, se = FALSE, linewidth = 1, colour = "black", linetype = 1) +
-  ggtitle("Log adjusted prices of indices from 2016 to 2020") + 
-  labs(x = "", y = "log price") +
+  ggtitle("Normalized prices of indices from 2016 to 2020") + 
+  labs(x = "", y = "normalized price") +
   theme_grey(16) +
   theme(text = element_text(size = 28), 
         legend.key.size = unit(1.5, 'cm'))
@@ -89,8 +136,8 @@ adj_price_minmax |>
   geom_line(lwd = 1.5) + 
   facet_wrap(~symbol, nrow = 3, scales = "free_y") + 
   geom_smooth(method = "loess", span = .25, se = FALSE, linewidth = 1, colour = "black", linetype = 1) +
-  ggtitle("Log adjusted prices of indices i2020") + 
-  labs(x = "", y = "log price") +
+  ggtitle("Normalized prices of indices i2020") + 
+  labs(x = "", y = "normalized price") +
   theme_grey(16) +
   theme(text = element_text(size = 28), 
         legend.key.size = unit(1.5, 'cm'))

@@ -223,7 +223,7 @@ noticed that such phenomenon might be causes by the missing of any call or bid o
 during these missing days. In this situation, we are not able to impute any data, hence we choose 
 to drop these rows as well. 
 
-Besides, we also want to mention that the stock market data are gapped naturally since markets 
+Besides, we also want to mention that the stock market data are gaped naturally since markets 
 do not trade on weekends or holidays. Usually there are only 252 trading days each year. However, 
 this will not influence our later analysis since we treat the trading days as consecutive dates. 
 
