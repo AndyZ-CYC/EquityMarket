@@ -11,20 +11,53 @@ library(scales)
 
 ## Sources
 
+we use [Yahoo Finance](https://finance.yahoo.com/) as a reliable source for these indices. 
+Yahoo Finance contains an impressive range of data, including market indices for 
+over 50 regions and all sector indices for the US market. The market information 
+on Yahoo Finance updates range from real-time to at most 30 minutes. Provided by 
+ICE data service, these data of global markets and sector markets are accurate 
+and up-to-date. We adapted the package in R named 
+[tidyquant](https://cran.r-project.org/web/packages/tidyquant/index.html). With 
+this package, we are able to acquire the market indices as a tibble object. For 
+the stock price along, we can obtain variables including the open, high, low, close, 
+volume, and the adjusted prices for the market index across decades of years.
+
+Recall that we separated our project into two parts:
+
+- Observation of the Markets in different regions
+- Observation of the Sectors
+
+For the first part of our project, we decide to choose one index for each region 
+included in the Yahoo Finance database as the representation of the local market. 
+For example, we use S&P 500 to represent the US equity market, Nikkei 500 to 
+describe the Japanese market, and the SSE Composite index for the Chinese market. 
+
+As for the second part, since we wish to observe the significance of the impact on 
+different industries, we follow the [11 stock market sectors according to the Global 
+Industry Classification Standard](https://www.spglobal.com/marketintelligence/en/documents/112727-gics-mapbook_2018_v3_letter_digitalspreads.pdf). We chose to focus on the US equity 
+market and selected to adopt the sector indices of S&P 500.
+
+To make comparisons of the markets before and during the pandemic, we import data for 
+5 years from 2016 to 2020. We treat the data from 2016 to 2019 as the market before the 
+pandemic, and the data in 2020 as the market during the pandemic.
+
 ```{r}
 start_date <- "2016-01-01"
 end_date <- "2020-12-31"
 ```
 
+Information of indices of three regions: 
 
 ```{r}
 # Data Set 1
 tickers_1 = c("^GSPC", "^N225", "000001.SS")
-data_reg <- tq_get(tickers_1, 
+data_reg_raw <- tq_get(tickers_1, 
                    get = "stock.prices", 
                    from = start_date, 
                    to = end_date)
 ```
+
+Information of S&P 500 index on different sectors:
 
 ```{r}
 # Data Set 2
@@ -34,19 +67,36 @@ tickers_2 = c("^SP500-45", "^SP500-35", "^SP500-40",
               "^SP500-25", "^SP500-50", "^SP500-20", 
               "^SP500-30", "^GSPE", "^SP500-55", 
               "^SP500-60", "^SP500-15")
-data_sec <- tq_get(tickers_2, 
+data_sec_raw <- tq_get(tickers_2, 
                    get = "stock.prices", 
                    from = start_date, 
                    to = end_date)
 ```
 
+The 11 sectors are: 
+
+- Information Technology
+- Health Care
+- Financials
+- Consumer Discretionary
+- Communication Services
+- Industrial
+- Consumer Staples
+- Energy
+- Utilities
+- Real Estate
+- Materials
+
 ## Cleaning / transformation
 
 #### Part 1
 
+For the data of three different indices, we first change the tickers to the names of 
+the corresponding indices for the purpose of easier understanding.
+
 ```{r}
 # Change tickers to names
-data_reg |> 
+data_reg_raw |> 
   mutate(symbol = 
            case_when(
              (symbol == "^GSPC") ~ "S&P_500", 
@@ -55,6 +105,11 @@ data_reg |>
            )) |>
   drop_na() -> data_reg
 ```
+
+Next, we notice that the three indices in different regions are presented in different 
+currencies. To unify the currency, we decide to transform the units of Nikkei 225 and SSE 
+Composite into US dollar. For the ease of calculation, we used the 5-year average exchange rates
+as the exchange rates between currencies. 
 
 ```{r}
 # adjust to USD
@@ -70,16 +125,39 @@ data_reg |>
   mutate(across(c(open, high, low, close, adjusted), ~ .x / exg_rate)) -> data_reg
 ```
 
+Next, since the three indices have various ranges, we normalized the indices for 
+better comparisons. Since stock indices are time series, we adopted the time series 
+normalization using the min and max values, and here is the equation: 
+
+$$
+y = \frac{x - x_{min}}{x_{max} - x_{min}}
+$$
+
 ```{r}
-# Standardize (take log) - for boxplot
+# Min-max Standardization
+sp500_min <- min(filter(data_reg, symbol == "S&P_500")$adjusted)
+sp500_max <- max(filter(data_reg, symbol == "S&P_500")$adjusted)
+nk225_min <- min(filter(data_reg, symbol == "Nikkei_225")$adjusted)
+nk225_max <- max(filter(data_reg, symbol == "Nikkei_225")$adjusted)
+sseC_min <- min(filter(data_reg, symbol == "SSE_Composite")$adjusted)
+sseC_max <- max(filter(data_reg, symbol == "SSE_Composite")$adjusted)
+
 data_reg |>
-  mutate(log_price = log(adjusted)) |>
-  select(date, symbol, log_price) -> adj_price_std
+  mutate(norm_price = case_when(
+    (symbol == "Nikkei_225") ~ ((adjusted - nk225_min) / (nk225_max - nk225_min)),  
+    (symbol == "SSE_Composite") ~ ((adjusted - sseC_min) / (sseC_max - sseC_min)), 
+    TRUE ~ ((adjusted - sp500_min) / (sp500_max - sp500_min))
+  )) -> adj_price_minmax
 ```
+
+#### Part 2
+
+For the S&P 500 indices of different sectors, we change each ticker to the name of the 
+corresponding sector. 
 
 ```{r}
 # Change tickers to sector names
-data_sec |>
+data_sec_raw |>
   mutate(sector = 
            case_when(
              (symbol == "^SP500-45") ~ "Information Technology", 
@@ -102,7 +180,39 @@ data_sec |>
 
 ## Missing value analysis
 
+In previous transformations, we dropped all the rows with null values. In this following 
+part, we will take a closer look to the rows that we dropped and make proper justifications. 
+
+First we take a look at the missing values in the first part:
+
+```{r}
+colSums(is.na(data_reg_raw))
+```
+
+```{r}
+unique(filter(data_reg_raw, is.na(open))$symbol)
+```
+
+From the results, we noticed that all the missing values come from the Nikkei 225 
+index, and there exist 21 days in total when values of Nikkei 225 index are missing. 
+
+```{r}
+filter(data_reg_raw, is.na(open))$date
+```
+
+By observing the dates when the value is missing, we observed no exact patterns. 
+Hence, we dropped all the missing rows instead of performing further imputation. 
+
+```{r}
+colSums(is.na(data_sec_raw))
+```
+
+```{r}
+filter(data_sec_raw, is.na(open))
+```
+
 (mention gap between dates - weekends and holidays)
+
 ```{r}
 summary(data_sec)
 ```
