@@ -23,7 +23,7 @@
 <meta name="author" content="Yaoyuan Zhang, Zimu An" />
 
 
-<meta name="date" content="2022-11-01" />
+<meta name="date" content="2022-12-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -83,8 +83,13 @@
 <li class="chapter" data-level="3.1" data-path="data.html"><a href="data.html#sources"><i class="fa fa-check"></i><b>3.1</b> Sources</a></li>
 <li class="chapter" data-level="3.2" data-path="data.html"><a href="data.html#cleaning-transformation"><i class="fa fa-check"></i><b>3.2</b> Cleaning / transformation</a></li>
 <li class="chapter" data-level="3.3" data-path="data.html"><a href="data.html#missing-value-analysis"><i class="fa fa-check"></i><b>3.3</b> Missing value analysis</a></li>
+<li class="chapter" data-level="3.4" data-path="data.html"><a href="data.html#data-for-interactive-d3-graph"><i class="fa fa-check"></i><b>3.4</b> Data For Interactive D3 Graph</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a></li>
+<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#part-1-1"><i class="fa fa-check"></i><b>4.1</b> Part 1</a></li>
+<li class="chapter" data-level="4.2" data-path="results.html"><a href="results.html#part-2-2"><i class="fa fa-check"></i><b>4.2</b> Part 2</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -110,12 +115,124 @@
 <h1><span class="header-section-number">Chapter 3</span> Data<a href="data.html#data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="sources" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Sources<a href="data.html#sources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>we use <a href="https://finance.yahoo.com/">Yahoo Finance</a> as a reliable source for these indices.
+Yahoo Finance contains an impressive range of data, including market indices for
+over 50 regions and all sector indices for the US market. The market information
+on Yahoo Finance updates range from real-time to at most 30 minutes. Provided by
+ICE data service, these data of global markets and sector markets are accurate
+and up-to-date. We adapted the package in R named
+<a href="https://cran.r-project.org/web/packages/tidyquant/index.html">tidyquant</a>. With
+this package, we are able to acquire the market indices as a tibble object. For
+the stock price along, we can obtain variables including the open, high, low, close,
+volume, and the adjusted prices for the market index across decades of years.</p>
+<p>Recall that we separated our project into two parts:</p>
+<ul>
+<li>Observation of the Markets in different regions</li>
+<li>Observation of the Sectors</li>
+</ul>
+<p>For the first part of our project, we decide to choose one index for each region
+included in the Yahoo Finance database as the representation of the local market.
+For example, we use S&amp;P 500 to represent the US equity market, Nikkei 500 to
+describe the Japanese market, and the SSE Composite index for the Chinese market.</p>
+<p>As for the second part, since we wish to observe the significance of the impact on
+different industries, we follow the <a href="https://www.spglobal.com/marketintelligence/en/documents/112727-gics-mapbook_2018_v3_letter_digitalspreads.pdf">11 stock market sectors according to the Global
+Industry Classification Standard</a>. We chose to focus on the US equity
+market and selected to adopt the sector indices of S&amp;P 500.</p>
+<p>To make comparisons of the markets before and during the pandemic, we import data for
+5 years from 2016 to 2020. We treat the data from 2016 to 2019 as the market before the
+pandemic, and the data in 2020 as the market during the pandemic.</p>
+<p>Information of indices of three regions:</p>
+<p>Information of S&amp;P 500 index on different sectors:</p>
+<p>The 11 sectors are:</p>
+<ul>
+<li>Information Technology</li>
+<li>Health Care</li>
+<li>Financials</li>
+<li>Consumer Discretionary</li>
+<li>Communication Services</li>
+<li>Industrial</li>
+<li>Consumer Staples</li>
+<li>Energy</li>
+<li>Utilities</li>
+<li>Real Estate</li>
+<li>Materials</li>
+</ul>
 </div>
 <div id="cleaning-transformation" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Cleaning / transformation<a href="data.html#cleaning-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="part-1" class="section level4 hasAnchor" number="3.2.0.1">
+<h4><span class="header-section-number">3.2.0.1</span> Part 1<a href="data.html#part-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>For the data of three different indices, we first change the tickers to the names of
+the corresponding indices for the purpose of easier understanding.</p>
+<p>Next, we notice that the three indices in different regions are presented in different
+currencies. To unify the currency, we decide to transform the units of Nikkei 225 and SSE
+Composite into US dollar. For the ease of calculation, we used the 5-year average exchange rates
+as the exchange rates between currencies.</p>
+<p>Next, since the three indices have various ranges, we normalized the indices for
+better comparisons. Since stock indices are time series, we adopted the time series
+normalization using the min and max values, and here is the equation:</p>
+<p><span class="math display">\[
+y = \frac{x - x_{min}}{x_{max} - x_{min}}
+\]</span></p>
+</div>
+<div id="part-2" class="section level4 hasAnchor" number="3.2.0.2">
+<h4><span class="header-section-number">3.2.0.2</span> Part 2<a href="data.html#part-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>For the S&amp;P 500 indices of different sectors, we change each ticker to the name of the
+corresponding sector.</p>
+</div>
+<div id="part-2-1" class="section level4 hasAnchor" number="3.2.0.3">
+<h4><span class="header-section-number">3.2.0.3</span> Part 2<a href="data.html#part-2-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
 </div>
 <div id="missing-value-analysis" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Missing value analysis<a href="data.html#missing-value-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In previous transformations, we dropped all the rows with null values. In this following
+part, we will take a closer look to the rows that we dropped and make proper justifications.</p>
+<p>First we take a look at the missing values in the first part:</p>
+<pre><code>##   symbol     date     open     high      low    close   volume adjusted 
+##        0        0       21       21       21       21       21       21</code></pre>
+<pre><code>## [1] &quot;^N225&quot;</code></pre>
+<p>From the results, we noticed that all the missing values come from the Nikkei 225
+index, and there exist 21 days in total when values of Nikkei 225 index are missing.</p>
+<pre><code>##  [1] &quot;2017-07-17&quot; &quot;2017-08-11&quot; &quot;2017-09-18&quot; &quot;2017-10-09&quot; &quot;2017-11-03&quot;
+##  [6] &quot;2017-11-23&quot; &quot;2018-01-01&quot; &quot;2018-01-02&quot; &quot;2018-01-03&quot; &quot;2018-01-08&quot;
+## [11] &quot;2018-02-12&quot; &quot;2018-03-21&quot; &quot;2018-04-30&quot; &quot;2018-05-03&quot; &quot;2018-05-04&quot;
+## [16] &quot;2018-09-17&quot; &quot;2018-09-24&quot; &quot;2018-10-08&quot; &quot;2018-11-23&quot; &quot;2018-12-24&quot;
+## [21] &quot;2018-12-31&quot;</code></pre>
+<p>By observing the dates when the value is missing, we observed no exact patterns.
+Hence, we dropped all the missing rows instead of performing further imputation.</p>
+<p>For the second part, similar procedures are performed:</p>
+<pre><code>##   symbol     date     open     high      low    close   volume adjusted 
+##        0        0      152      152      152      152      152      152</code></pre>
+<pre><code>## # A tibble: 152 × 8
+##    symbol    date        open  high   low close volume adjusted
+##    &lt;chr&gt;     &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+##  1 ^SP500-45 2019-07-01    NA    NA    NA    NA     NA       NA
+##  2 ^SP500-45 2019-07-02    NA    NA    NA    NA     NA       NA
+##  3 ^SP500-45 2019-07-03    NA    NA    NA    NA     NA       NA
+##  4 ^SP500-35 2019-07-01    NA    NA    NA    NA     NA       NA
+##  5 ^SP500-35 2019-07-02    NA    NA    NA    NA     NA       NA
+##  6 ^SP500-35 2019-07-03    NA    NA    NA    NA     NA       NA
+##  7 ^SP500-40 2019-07-01    NA    NA    NA    NA     NA       NA
+##  8 ^SP500-40 2019-07-02    NA    NA    NA    NA     NA       NA
+##  9 ^SP500-40 2019-07-03    NA    NA    NA    NA     NA       NA
+## 10 ^SP500-25 2019-07-01    NA    NA    NA    NA     NA       NA
+## # … with 142 more rows</code></pre>
+<p>After taking a closer look at the missing value, we noticed that almost all the
+sectors have missing value from July 1st to July 3rd in 2019. After looking into the
+financial events and stock market news on these days, we still failed to find out
+what happened on these days. As a result, we just treated these three days as holidays and
+dropped the rows. Meanwhile, we noticed that there exists many other missing values
+for the Real Estate Sectors. After taking another observation of the data in those days, we
+noticed that such phenomenon might be causes by the missing of any call or bid on the market
+during these missing days. In this situation, we are not able to impute any data, hence we choose
+to drop these rows as well.</p>
+<p>Besides, we also want to mention that the stock market data are gaped naturally since markets
+do not trade on weekends or holidays. Usually there are only 252 trading days each year. However,
+this will not influence our later analysis since we treat the trading days as consecutive dates.</p>
+</div>
+<div id="data-for-interactive-d3-graph" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Data For Interactive D3 Graph<a href="data.html#data-for-interactive-d3-graph" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>
@@ -179,6 +296,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

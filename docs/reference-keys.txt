@@ -17,3 +17,9 @@ candlesticks
 results-part-2
 timeseries-line-plots
 timeseries-smooth-plots
+part-2-1
+data-for-interactive-d3-graph
+candlestick-charts
+time-series-line-charts
+returns
+part-2-2

@@ -59,7 +59,7 @@ data_reg_raw <- tq_get(tickers_1,
 
 Information of S&P 500 index on different sectors:
 
-```{r}
+```{r, include=TRUE}
 # Data Set 2
 # order: IT, Health Care, Financials, Consumer Discretionary, Communication Services
 #        Industrial, Consumer Staples, Energy, Utilities, Real Estate, Materials
@@ -254,10 +254,4 @@ tester_json <- toJSON(tester_list, auto_unbox = TRUE)
 write(tester_json, file = "data/sp500.json")
 ```
 
-```{r}
-write.csv(data_d3, "data/sp500.csv")
-```
-```{r}
-tester_json
-```
 
