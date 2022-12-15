@@ -1,13 +1,7 @@
 # Interactive component
-
 <link rel=stylesheet href="style.css" type="text/css" media=screen>
-
-```{=html}
 <script src="https://d3js.org/d3.v7.js"></script>
-```
-```{=html}
 <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js' charset="utf-8"></script>
-```
-```{=html}
-<script src="script.js"></script>
-```
+<div id="plot"></div>
+<script src="backup_script.js"></script>
+

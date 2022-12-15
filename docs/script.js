@@ -11,12 +11,12 @@
     bisectDate = d3.bisector(function(d) { return d.date; }).left,
     legendFormat = d3.time.format('%b %d, %Y');
 
-  var x = d3.scaleTime().range([0, width]),
-    x2  = d3.scaleTime().range([0, width]),
-    y   = d3.scaleLinear().range([height, 0]),
-    y1  = d3.scaleLinear().range([height, 0]),
-    y2  = d3.scaleLinear().range([height2, 0]),
-    y3  = d3.scaleLinear().range([60, 0]);
+  var x = d3.time.scale().range([0, width]),
+    x2  = d3.time.scale().range([0, width]),
+    y   = d3.scale.linear().range([height, 0]),
+    y1  = d3.scale.linear().range([height, 0]),
+    y2  = d3.scale.linear().range([height2, 0]),
+    y3  = d3.scale.linear().range([60, 0]);
 
   var xAxis = d3.svg.axis().scale(x).orient('bottom'),
     xAxis2  = d3.svg.axis().scale(x2).orient('bottom'),
@@ -105,8 +105,6 @@
       .text(legendFormat(new Date(xRange[0])) + ' - ' + legendFormat(new Date(xRange[1])))
       .style('text-anchor', 'end')
       .attr('transform', 'translate(' + width + ', 0)');
-    
-    -----
 
     focus.append('g')
         .attr('class', 'y chart__grid')
@@ -276,8 +274,8 @@
     return {
       date    : parseDate(d.date),
       price   : +d.close,
-      //average : +d.Average,
-      volume : +d.volume,
+      average : +d.Average,
+      volume : +d.Volume,
     }
   }
 }());
