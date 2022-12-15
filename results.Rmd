@@ -230,7 +230,10 @@ data_reg |>
         legend.key.size = unit(1, 'cm'))
 ```
 
-From the return plots, 
+From the return plots, we can observe that, although Nikkei 225 looks similar with 
+S&P 500 in previous plots, it is still more volatile in normal days. If we look at 
+the return plots along, we can say that the Japanese market is actually not impacted 
+as severe as the US market. 
 
 ```{r, fig.width=6, fig.height=3}
 data_reg |>
@@ -252,6 +255,12 @@ data_reg |>
         text = element_text(size = 18), 
         legend.key.size = unit(1, 'cm'))
 ```
+
+While the Nikkei 225 still has obvious downward clusters in daily returns, we can see 
+that such clusters are even smaller in the return chart of SSE Composite. The volatility 
+of SSE Composite's daily returns remained on the approximately same level before and 
+during the pandemic. Hence, from this graph, we can further infer that the Chinese 
+market was the least influenced one by the pandemic among the three markets. 
 
 ## Part 2
 
