@@ -54,13 +54,33 @@ data_reg |>
   drop_na() -> data_reg
 ```
 
-
 ```{r}
 # Standardize (take log) - for boxplot
 data_reg |>
   mutate(log_price = log(adjusted)) |>
   select(date, symbol, log_price) -> adj_price_std
 ```
+
+```{r}
+# Change tickers to sector names
+data_sec |>
+  mutate(sector = 
+           case_when(
+             (symbol == "^SP500-45") ~ "Information Technology", 
+             (symbol == "^SP500-35") ~ "Health Care", 
+             (symbol == "^SP500-40") ~ "Financials", 
+             (symbol == "^SP500-25") ~ "Consumer Discretionary", 
+             (symbol == "^SP500-50") ~ "Communication Services", 
+             (symbol == "^SP500-20") ~ "Industrial", 
+             (symbol == "^SP500-30") ~ "Consumer Staples", 
+             (symbol == "^GSPE") ~ "Energy", 
+             (symbol == "^SP500-55") ~ "Utilities", 
+             (symbol == "^SP500-60") ~ "Real Estate", 
+             TRUE ~ "Materials"
+           )) |>
+  drop_na() -> data_sec
+```
+
 
 #### Part 2
 

@@ -2,22 +2,79 @@
 
 ## Part 1
 
-#### Boxplot
-
-```{r}
-data_reg |>
-  filter_all(any_vars(is.na(.)))
-```
-
-```{r}
-adj_price_std
-```
-
+#### 1 - Boxplot
 
 ```{r}
 adj_price_std |>
-  ggplot(aes(x = reorder(symbol, log_price, median), y = log_price)) + 
+  filter(date < "2020-01-01") |>
+  ggplot(aes(x = symbol, y = log_price)) + 
   geom_boxplot() + 
-  coord_flip()
+  coord_flip() +
+  ggtitle("Boxplots of Log adjusted prices of three indicies from 2010 to 2021") + 
+  labs(y = "log adjusted prices", x = "Index Name")
 ```
+
+```{r}
+adj_price_std |>
+  filter(date >= "2020-01-01") |>
+  ggplot(aes(x = symbol, y = log_price)) + 
+  geom_boxplot() + 
+  coord_flip() +
+  ggtitle("Boxplots of Log adjusted prices of three indicies from 2010 to 2021") + 
+  labs(y = "log adjusted prices", x = "Index Name")
+```
+
+#### 2 - Candlesticks
+
+S&P 500
+
+```{r}
+plot_candlestick <- function(target_symbol, from, to) {
+  data_reg |>
+    filter(date >= from & date < to) |>
+    filter(symbol == target_symbol) |>
+    mutate(GreenRed = case_when(
+      (open-close > 0) ~ "Red", 
+      TRUE ~ "Green"
+    )) |>
+    ggplot() + 
+    geom_segment(aes(x = date, xend = date, 
+                     y = open, yend = close, 
+                     colour = GreenRed), linewidth = 3) +
+    theme_tq() + 
+    geom_segment(aes(x = date, xend = date, 
+                     y = low, yend = high, 
+                     colour = GreenRed)) + 
+    scale_color_manual(values = c("Forest Green", "Red")) + 
+    ggtitle(paste0(target_symbol, " Index from ", from, " to ", to)) + 
+    theme(text = element_text(size = 28), 
+          legend.position = "none", 
+          axis.title.y = element_blank())
+}
+```
+
+```{r, fig.width=12, fig.height=7}
+plot_candlestick("S&P_500", "2020-01-01", "2021-01-01")
+```
+
+
+```{r, fig.width=12, fig.height=7}
+plot_candlestick("Nikkei_225", "2020-01-01", "2021-01-01")
+```
+
+```{r, fig.width=12, fig.height=7}
+plot_candlestick("SSE_Composite", "2020-01-01", "2021-01-01")
+```
+
+```{r}
+adj_price_std |>
+  mutate(symbol = forcats::fct_reorder2(symbol, date, log_price)) |>
+  ggplot(aes(x = date, y = log_price, color = symbol)) +
+  geom_line() +
+  ggtitle("Log adjusted prices of indices from 2010 to 2022") + 
+  labs(x = "", y = "log price") +
+  theme_grey(16)
+
+```
+
 
