@@ -121,3 +121,11 @@ data_sec <- data_sec %>% drop_na()
 colSums(is.na(data_sec)) %>%  
   sort(decreasing = TRUE)
 ```
+```{r}
+data_d3 = data_reg |> filter(symbol == "S&P_500")
+data_d3
+```
+```{r}
+write.csv(data_d3, "data/sp500.csv")
+```
+
