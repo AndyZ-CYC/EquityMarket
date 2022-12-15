@@ -5,28 +5,27 @@
 #### 1 - Boxplot
 
 ```{r}
-adj_price_std |>
+adj_price_minmax |>
   filter(date < "2020-01-01") |>
-  ggplot(aes(x = symbol, y = log_price)) + 
+  ggplot(aes(x = symbol, y = norm_price)) + 
   geom_boxplot() + 
   coord_flip() +
-  ggtitle("Boxplots of Log adjusted prices of three indicies from 2010 to 2021") + 
-  labs(y = "log adjusted prices", x = "Index Name")
+  ggtitle("Boxplots of normalized adjusted prices of three indicies from 2010 to 2021") + 
+  labs(y = "normalized prices", x = "Index Name")
 ```
 
 ```{r}
-adj_price_std |>
+adj_price_minmax |>
   filter(date >= "2020-01-01") |>
-  ggplot(aes(x = symbol, y = log_price)) + 
+  ggplot(aes(x = symbol, y = norm_price)) + 
   geom_boxplot() + 
   coord_flip() +
-  ggtitle("Boxplots of Log adjusted prices of three indicies in 2020") + 
-  labs(y = "log adjusted prices", x = "Index Name")
+  ggtitle("Boxplots of normalized adjusted prices of three indicies in 2020") + 
+  labs(y = "Normalized prices", x = "Index Name")
 ```
 
 #### 2 - Candlesticks
 
-S&P 500
 
 ```{r}
 plot_candlestick <- function(target_symbol, from, to) {
@@ -90,7 +89,7 @@ adj_price_minmax |>
   geom_line(lwd = 1.5) + 
   facet_wrap(~symbol, nrow = 3, scales = "free_y") + 
   geom_smooth(method = "loess", span = .25, se = FALSE, linewidth = 1, colour = "black", linetype = 1) +
-  ggtitle("Log adjusted prices of indices in 2020") + 
+  ggtitle("Log adjusted prices of indices i2020") + 
   labs(x = "", y = "log price") +
   theme_grey(16) +
   theme(text = element_text(size = 28), 
@@ -111,7 +110,11 @@ data_reg |>
   )) |>
   ggplot(aes(x = date, y = return, fill = pandemic, colour = pandemic)) + 
   geom_col() + 
-  theme(legend.title = element_blank())
+  scale_color_manual(values = c("normal" = "#999999", "pandemic" = "#E69F00")) + 
+  scale_fill_manual(values = c("normal" = "#999999", "pandemic" = "#E69F00")) + 
+  ggtitle("Log Returns of S&P 500 index before and during the pandemic") + 
+  theme(legend.title = element_blank(), 
+        axis.title.y = element_blank())
 ```
 
 ```{r}
@@ -126,7 +129,11 @@ data_reg |>
   )) |>
   ggplot(aes(x = date, y = return, fill = pandemic, colour = pandemic)) + 
   geom_col() + 
-  theme(legend.title = element_blank())
+  scale_color_manual(values = c("normal" = "#999999", "pandemic" = "#E69F00")) + 
+  scale_fill_manual(values = c("normal" = "#999999", "pandemic" = "#E69F00")) + 
+  ggtitle("Log Returns of Nikkei 225 index before and during the pandemic") + 
+  theme(legend.title = element_blank(), 
+        axis.title.y = element_blank())
 ```
 
 ```{r}
@@ -141,7 +148,11 @@ data_reg |>
   )) |>
   ggplot(aes(x = date, y = return, fill = pandemic, colour = pandemic)) + 
   geom_col() + 
-  theme(legend.title = element_blank())
+  scale_color_manual(values = c("normal" = "#999999", "pandemic" = "#E69F00")) + 
+  scale_fill_manual(values = c("normal" = "#999999", "pandemic" = "#E69F00")) + 
+  ggtitle("Log Returns of SSE Composite index before and during the pandemic") + 
+  theme(legend.title = element_blank(), 
+        axis.title.y = element_blank())
 ```
 
 
