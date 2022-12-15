@@ -1,6 +1,12 @@
 # Interactive component
+
+## S&P 500 interactive candelstick chart in 2020
+
+<link rel=stylesheet href="style.css" type="text/css" media=screen>
 <script src="https://d3js.org/d3.v7.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js' charset="utf-8"></script>
 <div id="plot"></div>
 <script src="candle.js"></script>
+
+## Analysis and justification
 

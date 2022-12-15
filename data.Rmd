@@ -59,7 +59,7 @@ data_reg_raw <- tq_get(tickers_1,
 
 Information of S&P 500 index on different sectors:
 
-```{r, include=TRUE}
+```{r}
 # Data Set 2
 # order: IT, Health Care, Financials, Consumer Discretionary, Communication Services
 #        Industrial, Consumer Staples, Energy, Utilities, Real Estate, Materials
