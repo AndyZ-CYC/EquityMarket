@@ -203,6 +203,8 @@ filter(data_reg_raw, is.na(open))$date
 By observing the dates when the value is missing, we observed no exact patterns. 
 Hence, we dropped all the missing rows instead of performing further imputation. 
 
+For the second part, similar procedures are performed:
+
 ```{r}
 colSums(is.na(data_sec_raw))
 ```
@@ -211,19 +213,21 @@ colSums(is.na(data_sec_raw))
 filter(data_sec_raw, is.na(open))
 ```
 
-(mention gap between dates - weekends and holidays)
+After taking a closer look at the missing value, we noticed that almost all the 
+sectors have missing value from July 1st to July 3rd in 2019. After looking into the 
+financial events and stock market news on these days, we still failed to find out 
+what happened on these days. As a result, we just treated these three days as holidays and 
+dropped the rows. Meanwhile, we noticed that there exists many other missing values 
+for the Real Estate Sectors. After taking another observation of the data in those days, we 
+noticed that such phenomenon might be causes by the missing of any call or bid on the market 
+during these missing days. In this situation, we are not able to impute any data, hence we choose 
+to drop these rows as well. 
 
-```{r}
-summary(data_sec)
-```
+Besides, we also want to mention that the stock market data are gapped naturally since markets 
+do not trade on weekends or holidays. Usually there are only 252 trading days each year. However, 
+this will not influence our later analysis since we treat the trading days as consecutive dates. 
 
-```{r}
-#md.pattern(data_sec)
-colSums(is.na(data_sec)) %>%  
-  sort(decreasing = TRUE)
-```
-From this we know that there are 152 days where we miss all column values except for date and the symbol.
-This might be due to holidays, and it's not feasible to impute values. We will drop these rows.
+## Data For Interactive D3 Graph
 
 ```{r}
 data_sec <- data_sec %>% drop_na()
@@ -231,10 +235,11 @@ data_sec <- data_sec %>% drop_na()
 colSums(is.na(data_sec)) %>%  
   sort(decreasing = TRUE)
 ```
+
 ```{r}
 data_d3 = data_reg |> filter(symbol == "S&P_500")
-data_d3
 ```
+
 ```{r}
 write.csv(data_d3, "data/sp500.csv")
 ```
