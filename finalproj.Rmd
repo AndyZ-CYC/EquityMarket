@@ -1,8 +1,67 @@
+--- 
+title: "Equity Market Research"
+author: "Yaoyuan Zhang, Zimu An"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+--- 
+title: "Equity Market Research"
+author: "Yaoyuan Zhang, Zimu An"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+
+# Introduction
+
+
+<!--chapter:end:index.Rmd-->
+
+
+# Proposal
+
+Placeholder
+
+
+## Research topic
+## Data availability
+
+<!--chapter:end:proposal.Rmd-->
+
+
+# Data 
+
+Placeholder
+
+
+## Sources
+## Cleaning / transformation
+#### Part 1
+#### Part 2
+#### Part 2
+## Missing value analysis
+## Data For Interactive D3 Graph
+
+<!--chapter:end:data.Rmd-->
+
 ---
 editor_options: 
   markdown: 
     wrap: 72
 ---
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
 
 # Results
 
@@ -400,3 +459,40 @@ ggplot(aes(date, adjusted)) +
   scale_x_date(labels = date_format("%m")) +
   ggtitle("Faceted Smooth plots for 11 sectors in 2020")
 ```
+
+<!--chapter:end:results.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Interactive component
+
+## S&P 500 interactive candelstick chart in 2020
+
+<link rel=stylesheet href="style.css" type="text/css" media=screen>
+<script src="https://d3js.org/d3.v7.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js' charset="utf-8"></script>
+<div id="plot"></div>
+<script src="candle.js"></script>
+
+## Analysis and justification
+
+
+<!--chapter:end:interactive.Rmd-->
+
+```{r include=FALSE, cache=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Conclusion
+
+
+<!--chapter:end:conclusion.Rmd-->
+

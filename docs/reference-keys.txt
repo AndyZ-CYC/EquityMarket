@@ -23,3 +23,5 @@ candlestick-charts
 time-series-line-charts
 returns
 part-2-2
+sp-500-interactive-candelstick-chart-in-2020
+analysis-and-justification
