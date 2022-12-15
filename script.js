@@ -106,7 +106,7 @@
       .style('text-anchor', 'end')
       .attr('transform', 'translate(' + width + ', 0)');
     
-    -----
+-----    
 
     focus.append('g')
         .attr('class', 'y chart__grid')
@@ -133,7 +133,7 @@
         .attr('class', 'y axis')
         .attr('transform', 'translate(12, 0)')
         .call(yAxis);
-
+-----
     var focusGraph = barsGroup.selectAll('rect')
         .data(data)
       .enter().append('rect')
