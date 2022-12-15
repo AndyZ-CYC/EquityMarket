@@ -153,9 +153,9 @@ data_sec_raw |>
   drop_na() -> data_sec
 ```
 
-## Part 1
+## Equity market in different regions
 
-### 1. Boxplot
+### Boxplot
 
 One of the most significant statistics of an index is its volatility.
 For the very beginning, we would like to observe the volatilities of the
@@ -196,7 +196,7 @@ more amount of outliers. While the Nikkei 225 index has both large and
 small outliers, all of the outliers of S&P 500 are smaller than
 $Q_1 - 1.5*IQR$.
 
-### 2. Candlestick Charts
+### Candlestick Charts
 
 To further observe the trends of the indices during the pandemic, we
 adapted a popular type of diagram when it comes to the stock analysis,
@@ -216,20 +216,20 @@ plot_candlestick <- function(target_symbol, from, to) {
     ggplot() + 
     geom_segment(aes(x = date, xend = date, 
                      y = open, yend = close, 
-                     colour = GreenRed), linewidth = 3) +
+                     colour = GreenRed), linewidth = 2) +
     theme_tq() + 
     geom_segment(aes(x = date, xend = date, 
                      y = low, yend = high, 
                      colour = GreenRed)) + 
     scale_color_manual(values = c("Forest Green", "Red")) + 
     ggtitle(paste0(target_symbol, " Index from ", from, " to ", to)) + 
-    theme(text = element_text(size = 28), 
+    theme(text = element_text(size = 20), 
           legend.position = "none", 
           axis.title.y = element_blank())
 }
 ```
 
-```{r, fig.width=12, fig.height=7}
+```{r, fig.width=7, fig.height=4.5}
 plot_candlestick("S&P_500", "2020-01-01", "2020-12-31")
 ```
 
@@ -244,7 +244,7 @@ the others, indicating a volatile market. However, we can notice that
 the market recovered gradually in the following six months and continued
 with a growing trend.
 
-```{r, fig.width=12, fig.height=7}
+```{r, fig.width=7, fig.height=4.5}
 plot_candlestick("Nikkei_225", "2020-01-01", "2020-12-31")
 ```
 
@@ -258,7 +258,7 @@ shrank in a more stable path. In addition, the price of the index
 recovered from the impact within only approximately 4 month, which is
 shorter than the US market.
 
-```{r, fig.width=12, fig.height=7}
+```{r, fig.width=7, fig.height=4.5}
 plot_candlestick("SSE_Composite", "2020-01-01", "2020-12-31")
 ```
 
@@ -272,21 +272,21 @@ opening up after the quarantines. Overall, the trend of SSE Composite is
 different, and the volatility of the Chinese market was increased due to
 the potential stimulation of policies.
 
-### 3. Time Series Line charts
+### Time Series Line charts
 
-```{r, fig.width=12, fig.height=7}
+```{r, fig.width=7, fig.height=4.5}
 adj_price_minmax |>
   mutate(symbol = forcats::fct_reorder2(symbol, date, norm_price)) |>
   ggplot(aes(x = date, y = norm_price, color = symbol)) +
-  geom_point(size = 1.5, fill = "black", shape = 21) + 
-  geom_line(lwd = 1) + 
+  geom_point(size = 1, fill = "black", shape = 21) + 
+  geom_line(lwd = 0.7) + 
   facet_wrap(~symbol, nrow = 3, scales = "free_y") + 
-  geom_smooth(method = "loess", span = .2, se = FALSE, linewidth = 1, colour = "black", linetype = 1) +
+  geom_smooth(method = "loess", span = .2, se = FALSE, linewidth = 0.7, colour = "black", linetype = 1) +
   ggtitle("Normalized prices of indices from 2016 to 2020") + 
   labs(x = "", y = "normalized price") +
   theme_grey(16) +
-  theme(text = element_text(size = 28), 
-        legend.key.size = unit(1.5, 'cm'))
+  theme(text = element_text(size = 18), 
+        legend.key.size = unit(1, 'cm'))
 ```
 
 By aligning the three indices together, there are several things that we can easily notice. 
@@ -301,20 +301,20 @@ relatively insignificant comparing with the overall performance of SSE Composite
 To give the impacts of Covid-19 on markets a closer look, we focus on the data in 2020 and 
 created another similar plot:
 
-```{r, fig.width=12, fig.height=7, warning = FALSE}
+```{r, fig.width=7, fig.height=4.5, warning = FALSE}
 adj_price_minmax |>
   filter(date >= "2020-01-01") |>
   mutate(symbol = forcats::fct_reorder2(symbol, date, norm_price)) |>
   ggplot(aes(x = date, y = norm_price, color = symbol)) +
-  geom_point(size = 2.5, fill = "black", shape = 21) + 
-  geom_line(lwd = 1.5) + 
+  geom_point(size = 1.5, fill = "black", shape = 21) + 
+  geom_line(lwd = 0.8) + 
   facet_wrap(~symbol, nrow = 3, scales = "free_y") + 
-  geom_smooth(method = "loess", span = .2, se = FALSE, linewidth = 1, colour = "black", linetype = 1) +
+  geom_smooth(method = "loess", span = .2, se = FALSE, linewidth = 0.8, colour = "black", linetype = 1) +
   ggtitle("Normalized prices of indices in 2020") + 
   labs(x = "", y = "normalized price") +
   theme_grey(16) +
-  theme(text = element_text(size = 28), 
-        legend.key.size = unit(1.5, 'cm'))
+  theme(text = element_text(size = 18), 
+        legend.key.size = unit(1, 'cm'))
 ```
 
 With the zoomed data, we can observe that although the overall trends of the markets 
@@ -347,8 +347,8 @@ data_reg |>
   ggtitle("Log Returns of S&P 500 index before and during the pandemic") + 
   theme(legend.title = element_blank(), 
         axis.title.y = element_blank(), 
-        text = element_text(size = 18), 
-        legend.key.size = unit(1, 'cm'))
+        text = element_text(size = 14), 
+        legend.key.size = unit(0.8, 'cm'))
 ```
 
 In this plot, we observed a clear increase in volatility during the Covid-19 pandemic. 
@@ -373,8 +373,8 @@ data_reg |>
   ggtitle("Log Returns of Nikkei 225 index before and during the pandemic") + 
   theme(legend.title = element_blank(), 
         axis.title.y = element_blank(), 
-        text = element_text(size = 18), 
-        legend.key.size = unit(1, 'cm'))
+        text = element_text(size = 14), 
+        legend.key.size = unit(0.8, 'cm'))
 ```
 
 From the return plots, we can observe that, although Nikkei 225 looks similar with 
@@ -399,8 +399,8 @@ data_reg |>
   ggtitle("Log Returns of SSE Composite index before and during the pandemic") + 
   theme(legend.title = element_blank(), 
         axis.title.y = element_blank(), 
-        text = element_text(size = 18), 
-        legend.key.size = unit(1, 'cm'))
+        text = element_text(size = 14), 
+        legend.key.size = unit(0.8, 'cm'))
 ```
 
 While the Nikkei 225 still has obvious downward clusters in daily returns, we can see 

@@ -87,8 +87,18 @@
 </ul></li>
 <li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#part-1-1"><i class="fa fa-check"></i><b>4.1</b> Part 1</a></li>
-<li class="chapter" data-level="4.2" data-path="results.html"><a href="results.html#part-2-2"><i class="fa fa-check"></i><b>4.2</b> Part 2</a></li>
+<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#part-1-1"><i class="fa fa-check"></i><b>4.1</b> Part 1</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="results.html"><a href="results.html#boxplot"><i class="fa fa-check"></i><b>4.1.1</b> 1. Boxplot</a></li>
+<li class="chapter" data-level="4.1.2" data-path="results.html"><a href="results.html#candlestick-charts"><i class="fa fa-check"></i><b>4.1.2</b> 2. Candlestick Charts</a></li>
+<li class="chapter" data-level="4.1.3" data-path="results.html"><a href="results.html#time-series-line-charts"><i class="fa fa-check"></i><b>4.1.3</b> 3. Time Series Line charts</a></li>
+<li class="chapter" data-level="4.1.4" data-path="results.html"><a href="results.html#returns"><i class="fa fa-check"></i><b>4.1.4</b> Returns</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="results.html"><a href="results.html#part-2-2"><i class="fa fa-check"></i><b>4.2</b> Part 2</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="results.html"><a href="results.html#timeseries-line-plots"><i class="fa fa-check"></i><b>4.2.1</b> Timeseries line plots</a></li>
+<li class="chapter" data-level="4.2.2" data-path="results.html"><a href="results.html#timeseries-smooth-plots"><i class="fa fa-check"></i><b>4.2.2</b> Timeseries Smooth plots</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a>
 <ul>
@@ -119,8 +129,8 @@
 <h1><span class="header-section-number">Chapter 4</span> Results<a href="results.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="part-1-1" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> Part 1<a href="results.html#part-1-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="boxplot" class="section level4 hasAnchor" number="4.1.0.1">
-<h4><span class="header-section-number">4.1.0.1</span> 1. Boxplot<a href="results.html#boxplot" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="boxplot" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> 1. Boxplot<a href="results.html#boxplot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One of the most significant statistics of an index is its volatility.
 For the very beginning, we would like to observe the volatilities of the
 three indices by creating a boxplot:</p>
@@ -140,14 +150,14 @@ more amount of outliers. While the Nikkei 225 index has both large and
 small outliers, all of the outliers of S&amp;P 500 are smaller than
 <span class="math inline">\(Q_1 - 1.5*IQR\)</span>.</p>
 </div>
-<div id="candlestick-charts" class="section level4 hasAnchor" number="4.1.0.2">
-<h4><span class="header-section-number">4.1.0.2</span> 2. Candlestick Charts<a href="results.html#candlestick-charts" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="candlestick-charts" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> 2. Candlestick Charts<a href="results.html#candlestick-charts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To further observe the trends of the indices during the pandemic, we
 adapted a popular type of diagram when it comes to the stock analysis,
 the Candlestick Charts. For the purpose of tidyness, we created a
 function to produce the candlestick chart for the given index and time
 range.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="1152" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>For the candlestick chart of S&amp;P 500 index in 2020, we can easily notice
 the drop from approximately the end of February to end of March, which
 is when the pandemic hit. The market shrank by approximately thirty
@@ -158,7 +168,7 @@ daily “candles” during this period were also significantly longer than
 the others, indicating a volatile market. However, we can notice that
 the market recovered gradually in the following six months and continued
 with a growing trend.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="1152" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>Similar with the S&amp;P 500, the Japanese market represented by Nikkei 225
 index also took a significant impact from Covid-19 during February and
 March in 2020. The number of green bars in this chart during the
@@ -168,7 +178,7 @@ shorter than the one of S&amp;P 500. This shows that the Japanese market
 shrank in a more stable path. In addition, the price of the index
 recovered from the impact within only approximately 4 month, which is
 shorter than the US market.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="1152" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>SSE Composite index, on the other side, has a very different trend
 comparing with the other two indices. Although there is a drop in price
 between February and March, the market rebounded back to previous prices
@@ -179,9 +189,9 @@ opening up after the quarantines. Overall, the trend of SSE Composite is
 different, and the volatility of the Chinese market was increased due to
 the potential stimulation of policies.</p>
 </div>
-<div id="time-series-line-charts" class="section level4 hasAnchor" number="4.1.0.3">
-<h4><span class="header-section-number">4.1.0.3</span> 3. Time Series Line charts<a href="results.html#time-series-line-charts" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="1152" /></p>
+<div id="time-series-line-charts" class="section level3 hasAnchor" number="4.1.3">
+<h3><span class="header-section-number">4.1.3</span> 3. Time Series Line charts<a href="results.html#time-series-line-charts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>By aligning the three indices together, there are several things that we can easily notice.
 First of all, the S&amp;P 500 index is the most stable index with a smooth upward trend line,
 while the SSE Composite is obviously more unstable in the last five years. In addition, the
@@ -192,7 +202,7 @@ relatively insignificant comparing with the overall performance of SSE Composite
 5 years.</p>
 <p>To give the impacts of Covid-19 on markets a closer look, we focus on the data in 2020 and
 created another similar plot:</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="1152" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>With the zoomed data, we can observe that although the overall trends of the markets
 are similar, all dropped before April and turned upward, the S&amp;P index and the Nikkei 225
 index shares more similarity when it comes to the shapes and detailed trends of the prices
@@ -200,8 +210,8 @@ in 2020. From this plot, we can better infer that the Chinese equity market was 
 by the Covid-19 pandemic, while both the US market and the Japanese market were influenced
 by the pandemic negatively in a similar way.</p>
 </div>
-<div id="returns" class="section level4 hasAnchor" number="4.1.0.4">
-<h4><span class="header-section-number">4.1.0.4</span> Returns<a href="results.html#returns" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="returns" class="section level3 hasAnchor" number="4.1.4">
+<h3><span class="header-section-number">4.1.4</span> Returns<a href="results.html#returns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Another method of displaying volatility and comparing impacts from the pandemic
 across three markets is to use daily returns. In the following part, the log daily
 returns of the three indices are plotted separately to be observed.</p>
@@ -226,13 +236,13 @@ market was the least influenced one by the pandemic among the three markets.</p>
 <div id="part-2-2" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Part 2<a href="results.html#part-2-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-16-1.png" width="864" /></p>
-<div id="timeseries-line-plots" class="section level4 hasAnchor" number="4.2.0.1">
-<h4><span class="header-section-number">4.2.0.1</span> Timeseries line plots<a href="results.html#timeseries-line-plots" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="timeseries-line-plots" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Timeseries line plots<a href="results.html#timeseries-line-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="864" /></p>
 </div>
-<div id="timeseries-smooth-plots" class="section level4 hasAnchor" number="4.2.0.2">
-<h4><span class="header-section-number">4.2.0.2</span> Timeseries Smooth plots<a href="results.html#timeseries-smooth-plots" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="timeseries-smooth-plots" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Timeseries Smooth plots<a href="results.html#timeseries-smooth-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-19-1.png" width="864" /></p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-20-1.png" width="864" /></p>
 
