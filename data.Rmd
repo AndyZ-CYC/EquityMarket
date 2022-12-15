@@ -6,6 +6,7 @@ library(tidyverse)
 library(fpp3)
 library(ggplot2)
 library(ggridges)
+library(scales)
 ```
 
 ## Sources
