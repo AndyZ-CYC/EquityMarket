@@ -88,7 +88,7 @@ plot_candlestick("S&P_500", "2020-01-01", "2020-12-31")
 
 For the candlestick chart of S&P 500 index in 2020, we can easily notice
 the drop from approximately the end of February to end of March, which
-is when the pandemic hitted. The market shrank by approximately thirty
+is when the pandemic hit. The market shrank by approximately thirty
 percent within a month. If we observe the chart carefully, we can notice
 that there exist noticable gaps between some trading days, indicating
 that the market was continuously impacted even after it was close. The
@@ -201,6 +201,10 @@ data_reg |>
   theme(legend.title = element_blank(), 
         axis.title.y = element_blank())
 ```
+
+In this plot, we observed a clear increase in volatility during the index. Before 
+2020, the log returns are represented with grey vertical bars and has a relatively 
+low range. After the pandemic hit the market
 
 ```{r}
 data_reg |>

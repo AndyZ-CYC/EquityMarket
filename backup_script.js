@@ -241,7 +241,8 @@
     }
         
     function brushed(event) {
-      var ext = d3.brushX([[0,0],[width, height]]).extent();
+      //var ext = d3.brushX([[0,0],[width, height]]).extent();
+      var ext = event;
       console.log(ext[0], ext[1]);
       const selection = event.selection;
       if (selection !== undefined) {
@@ -251,6 +252,7 @@
           d3.min(data.map(function(d) { return (d.date >= ext[0] && d.date <= ext[1]) ? d.price : max; })),
           d3.max(data.map(function(d) { return (d.date >= ext[0] && d.date <= ext[1]) ? d.price : min; }))
         ]);
+        //console.log(ext[0], ext[1]);
         range.text(legendFormat(new Date(ext[0])) + ' - ' + legendFormat(new Date(ext[1])))
         focusGraph.attr('x', function(d, i) { return x(d.date); });
 
@@ -297,7 +299,7 @@
         ext.setFullYear(ext.getFullYear() - 5)
 
       brush.extent([ext, today])
-      brushed()
+      brushed(brush.extent([ext, today]))
       context.select('g.x.brush').call(brush.extent([ext, today]))
     }
   });

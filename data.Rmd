@@ -230,14 +230,28 @@ this will not influence our later analysis since we treat the trading days as co
 ## Data For Interactive D3 Graph
 
 ```{r}
-data_sec <- data_sec %>% drop_na()
-
-colSums(is.na(data_sec)) %>%  
-  sort(decreasing = TRUE)
+data_d3 <- data_reg |>
+  filter(symbol == "S&P_500") |>
+  filter(date >= "2020-01-01")
 ```
 
 ```{r}
-data_d3 = data_reg |> filter(symbol == "S&P_500")
+data_d3 |>
+  select(date, open, close, high, low, volume, adjusted) |>
+  drop_na() -> tester
+
+unname(split(unname(tester), 1:nrow(tester))) -> tester
+
+#lapply(tester, function(x) unlist(x)) -> tester
+
+tester_list <- list(id = "S&P500", data = tester)
+```
+
+```{r}
+library(jsonlite)
+tester_json <- toJSON(tester_list, auto_unbox = TRUE)
+
+save(tester_json, file = "data/sp500.json")
 ```
 
 ```{r}
