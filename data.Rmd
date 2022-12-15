@@ -78,6 +78,24 @@ data_reg |>
 ```
 
 ```{r}
+# Min-max Standardize
+sp500_min <- min(filter(data_reg, symbol == "S&P_500")$adjusted)
+sp500_max <- max(filter(data_reg, symbol == "S&P_500")$adjusted)
+nk225_min <- min(filter(data_reg, symbol == "Nikkei_225")$adjusted)
+nk225_max <- max(filter(data_reg, symbol == "Nikkei_225")$adjusted)
+sseC_min <- min(filter(data_reg, symbol == "SSE_Composite")$adjusted)
+sseC_max <- max(filter(data_reg, symbol == "SSE_Composite")$adjusted)
+
+data_reg |>
+  mutate(norm_price = case_when(
+    (symbol == "Nikkei_225") ~ ((adjusted - nk225_min) / (nk225_max - nk225_min)),  
+    (symbol == "SSE_Composite") ~ ((adjusted - sseC_min) / (sseC_max - sseC_min)), 
+    TRUE ~ ((adjusted - sp500_min) / (sp500_max - sp500_min))
+  )) -> adj_price_minmax
+```
+
+
+```{r}
 # Change tickers to sector names
 data_sec |>
   mutate(sector = 

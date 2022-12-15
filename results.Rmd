@@ -66,18 +66,86 @@ plot_candlestick("Nikkei_225", "2020-01-01", "2021-01-01")
 plot_candlestick("SSE_Composite", "2020-01-01", "2021-01-01")
 ```
 
-```{r}
-adj_price_std |>
-  mutate(symbol = forcats::fct_reorder2(symbol, date, log_price)) |>
-  ggplot(aes(x = date, y = log_price, color = symbol)) +
-  geom_line() +
+```{r, fig.width=12, fig.height=7}
+adj_price_minmax |>
+  mutate(symbol = forcats::fct_reorder2(symbol, date, norm_price)) |>
+  ggplot(aes(x = date, y = norm_price, color = symbol)) +
+  geom_point(size = 1.5, fill = "black", shape = 21) + 
+  geom_line(lwd = 1) + 
+  facet_wrap(~symbol, nrow = 3, scales = "free_y") + 
+  geom_smooth(method = "loess", span = .25, se = FALSE, linewidth = 1, colour = "black", linetype = 1) +
   ggtitle("Log adjusted prices of indices from 2016 to 2020") + 
   labs(x = "", y = "log price") +
-  theme_grey(16)
-
+  theme_grey(16) +
+  theme(text = element_text(size = 28), 
+        legend.key.size = unit(1.5, 'cm'))
 ```
 
-#### results Part 2
+```{r, fig.width=12, fig.height=7, warning = FALSE}
+adj_price_minmax |>
+  filter(date >= "2020-01-01") |>
+  mutate(symbol = forcats::fct_reorder2(symbol, date, norm_price)) |>
+  ggplot(aes(x = date, y = norm_price, color = symbol)) +
+  geom_point(size = 2.5, fill = "black", shape = 21) + 
+  geom_line(lwd = 1.5) + 
+  facet_wrap(~symbol, nrow = 3, scales = "free_y") + 
+  geom_smooth(method = "loess", span = .25, se = FALSE, linewidth = 1, colour = "black", linetype = 1) +
+  ggtitle("Log adjusted prices of indices in 2020") + 
+  labs(x = "", y = "log price") +
+  theme_grey(16) +
+  theme(text = element_text(size = 28), 
+        legend.key.size = unit(1.5, 'cm'))
+```
+
+#### Returns 
+
+```{r}
+data_reg |>
+  filter(symbol == "S&P_500") |>
+  mutate(return = log(adjusted) - log(lag(adjusted))) |>
+  drop_na() |>
+  select(date, symbol, return) |>
+  mutate(pandemic = case_when(
+    (date >= "2020-01-01") ~ "pandemic", 
+    TRUE ~ "normal"
+  )) |>
+  ggplot(aes(x = date, y = return, fill = pandemic, colour = pandemic)) + 
+  geom_col() + 
+  theme(legend.title = element_blank())
+```
+
+```{r}
+data_reg |>
+  filter(symbol == "Nikkei_225") |>
+  mutate(return = log(adjusted) - log(lag(adjusted))) |>
+  drop_na() |>
+  select(date, symbol, return) |>
+  mutate(pandemic = case_when(
+    (date >= "2020-01-01") ~ "pandemic", 
+    TRUE ~ "normal"
+  )) |>
+  ggplot(aes(x = date, y = return, fill = pandemic, colour = pandemic)) + 
+  geom_col() + 
+  theme(legend.title = element_blank())
+```
+
+```{r}
+data_reg |>
+  filter(symbol == "SSE_Composite") |>
+  mutate(return = log(adjusted) - log(lag(adjusted))) |>
+  drop_na() |>
+  select(date, symbol, return) |>
+  mutate(pandemic = case_when(
+    (date >= "2020-01-01") ~ "pandemic", 
+    TRUE ~ "normal"
+  )) |>
+  ggplot(aes(x = date, y = return, fill = pandemic, colour = pandemic)) + 
+  geom_col() + 
+  theme(legend.title = element_blank())
+```
+
+
+## Part 2
 
 ```{r fig.width=9, fig.height=6}
 ggplot(data_sec, aes(x = adjusted, y = as.factor(sector), fill = factor(stat(quantile)))) + 
