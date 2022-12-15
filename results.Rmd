@@ -179,6 +179,10 @@ by the pandemic negatively in a similar way.
 
 #### Returns
 
+Another method of displaying volatility and comparing impacts from the pandemic 
+across three markets is to use daily returns. In the following part, the log daily 
+returns of the three indices are plotted separately to be observed. 
+
 ```{r}
 data_reg |>
   filter(symbol == "S&P_500") |>
