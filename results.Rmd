@@ -77,4 +77,49 @@ adj_price_std |>
 
 ```
 
+#### results Part 2
+
+```{r fig.width=9, fig.height=6}
+ggplot(data_sec, aes(x = adjusted, y = as.factor(symbol), fill = factor(stat(quantile)))) + 
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    quantiles = 4, quantile_lines = TRUE
+  ) +
+  scale_fill_viridis_d(name = "Quartiles") +
+  ggtitle("Ridgeline plots for 11 sectors from 2010 to 2021")
+```
+
+#### Timeseries line plots
+```{r fig.width=9, fig.height=6}
+ggplot(data_sec,aes(x=date,y=adjusted))+
+  geom_line(aes(color=symbol))+
+  scale_x_date(date_breaks="1 year", date_labels="%Y") +
+  ggtitle("Line plots for 11 sectors from 2010 to 2021")
+```
+
+
+```{r fig.width=9, fig.height=6}
+data_sec |> filter(date >= "2020-01-01" & date <= "2020-12-31") |>
+  ggplot(aes(date, adjusted)) +
+  geom_line(aes(color=symbol)) +
+  scale_x_date(date_breaks="1 month", labels = date_format("%m")) +
+  ggtitle("Line plots for 11 sectors in 2020")
+```
+
+#### Timeseries Smooth plots
+```{r fig.width=9, fig.height=7}
+ggplot(data_sec, aes(date, adjusted)) + 
+  facet_wrap(~ symbol, scales = 'free_x') +
+  geom_smooth(span = 0.1)
+```
+
+```{r fig.width=9, fig.height=7}
+data_sec |> filter(date >= "2020-01-01" & date <= "2020-12-31") |>
+ggplot(aes(date, adjusted)) + 
+  facet_wrap(~ symbol, scales = 'free_x') +
+  geom_smooth(span = 0.12) + 
+  labs(x = "Month") +
+  scale_x_date(labels = date_format("%m"))
+```
+
 

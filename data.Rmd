@@ -5,13 +5,14 @@ library(tidyquant)
 library(tidyverse)
 library(fpp3)
 library(ggplot2)
+library(ggridges)
 ```
 
 ## Sources
 
 ```{r}
 start_date <- "2010-01-01"
-end_date <- "2021-12-31"
+end_date <- "2020-12-31"
 ```
 
 
@@ -87,3 +88,20 @@ data_sec |>
 ## Missing value analysis
 
 (mention gap between dates - weekends and holidays)
+```{r}
+summary(data_sec)
+```
+```{r}
+#md.pattern(data_sec)
+colSums(is.na(data_sec)) %>%  
+  sort(decreasing = TRUE)
+```
+From this we know that there are 152 days where we miss all column values except for date and the symbol.
+This might be due to holidays, and it's not feasible to impute values. We will drop these rows.
+
+```{r}
+data_sec <- data_sec %>% drop_na()
+
+colSums(is.na(data_sec)) %>%  
+  sort(decreasing = TRUE)
+```
