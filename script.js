@@ -11,12 +11,12 @@
     bisectDate = d3.bisector(function(d) { return d.date; }).left,
     legendFormat = d3.time.format('%b %d, %Y');
 
-  var x = d3.scaleTime().range([0, width]),
-    x2  = d3.scaleTime().range([0, width]),
-    y   = d3.scaleLinear().range([height, 0]),
-    y1  = d3.scaleLinear().range([height, 0]),
-    y2  = d3.scaleLinear().range([height2, 0]),
-    y3  = d3.scaleLinear().range([60, 0]);
+  var x = d3.time.scale().range([0, width]),
+    x2  = d3.time.scale().range([0, width]),
+    y   = d3.scale.linear().range([height, 0]),
+    y1  = d3.scale.linear().range([height, 0]),
+    y2  = d3.scale.linear().range([height2, 0]),
+    y3  = d3.scale.linear().range([60, 0]);
 
   var xAxis = d3.svg.axis().scale(x).orient('bottom'),
     xAxis2  = d3.svg.axis().scale(x2).orient('bottom'),
@@ -27,18 +27,13 @@
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.price); });
 
-  var avgLine = d3.svg.line()
-    .interpolate('monotone')
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.average); });
-
   var area2 = d3.svg.area()
     .interpolate('monotone')
     .x(function(d) { return x2(d.date); })
     .y0(height2)
     .y1(function(d) { return y2(d.price); });
 
-  var svg = d3.select("div#plot").append('svg')
+  var svg = d3.select('div#plot').append('svg')
     .attr('class', 'chart')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom + 60);
@@ -83,9 +78,19 @@
     .append('g')
     .attr('class', 'chart__range-selection')
     .attr('transform', 'translate(110, 0)');
+    
+  // write async function to get the data promise
+  async function data(pathToCsv) {
+        var dataset = await d3.csv(pathToCsv, function (d) {
+            d.date = parseDate(d.date)
+            d.price = +d.close
+            d.volume = +d.volume
+            return d
+        })
+        return dataset
+    };
 
-  d3.csv('data/sp500.csv', type, function(err, data) {
-    console.log(1);
+  data('https://raw.githubusercontent.com/AndyZ-CYC/EquityMarket/main/data/sp500.csv').then(function(data) {
     var brush = d3.svg.brush()
       .x(x2)
       .on('brush', brushed);
@@ -105,19 +110,12 @@
       .text(legendFormat(new Date(xRange[0])) + ' - ' + legendFormat(new Date(xRange[1])))
       .style('text-anchor', 'end')
       .attr('transform', 'translate(' + width + ', 0)');
-    
------    
 
     focus.append('g')
         .attr('class', 'y chart__grid')
         .call(make_y_axis()
         .tickSize(-width, 0, 0)
         .tickFormat(''));
-
-    var averageChart = focus.append('path')
-        .datum(data)
-        .attr('class', 'chart__line chart__average--focus line')
-        .attr('d', avgLine);
 
     var priceChart = focus.append('path')
         .datum(data)
@@ -133,7 +131,7 @@
         .attr('class', 'y axis')
         .attr('transform', 'translate(12, 0)')
         .call(yAxis);
------
+
     var focusGraph = barsGroup.selectAll('rect')
         .data(data)
       .enter().append('rect')
@@ -156,11 +154,6 @@
       .style('display', 'none')
       .attr('r', 2.5);
 
-    var averageTooltip = focus.append('g')
-      .attr('class', 'chart__tooltip--average')
-      .append('circle')
-      .style('display', 'none')
-      .attr('r', 2.5);
 
     var mouseArea = svg.append('g')
       .attr('class', 'chart__mouse')
@@ -172,12 +165,10 @@
       .on('mouseover', function() {
         helper.style('display', null);
         priceTooltip.style('display', null);
-        averageTooltip.style('display', null);
       })
       .on('mouseout', function() {
         helper.style('display', 'none');
         priceTooltip.style('display', 'none');
-        averageTooltip.style('display', 'none');
       })
       .on('mousemove', mousemove);
 
@@ -200,14 +191,14 @@
         .attr('height', height2 + 7);
 
     function mousemove() {
+      if(this.date === undefined) {return};
       var x0 = x.invert(d3.mouse(this)[0]);
       var i = bisectDate(data, x0, 1);
       var d0 = data[i - 1];
       var d1 = data[i];
       var d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-      helperText.text(legendFormat(new Date(d.date)) + ' - Price: ' + d.price + ' Avg: ' + d.average);
+      helperText.text(legendFormat(new Date(d.date)) + ' - Price: ' + d.price);
       priceTooltip.attr('transform', 'translate(' + x(d.date) + ',' + y(d.price) + ')');
-      averageTooltip.attr('transform', 'translate(' + x(d.date) + ',' + y(d.average) + ')');
     }
 
     function brushed() {
@@ -226,7 +217,6 @@
       }
 
       priceChart.attr('d', priceLine);
-      averageChart.attr('d', avgLine);
       focus.select('.x.axis').call(xAxis);
       focus.select('.y.axis').call(yAxis);
     }
@@ -270,14 +260,4 @@
     }
 
   })// end Data
-
- // don't use average, delete this part in above code
-  function type(d) {
-    return {
-      date    : parseDate(d.date),
-      price   : +d.close,
-      //average : +d.Average,
-      volume : +d.volume,
-    }
-  }
 }());

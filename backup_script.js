@@ -57,6 +57,14 @@
   var focus = svg.append('g')
     .attr('class', 'focus')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+  //const focus = svg
+  //    .append('g')
+ //     .attr('class', 'focus')
+  //    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+      //.style('display', 'none');
+ // focus.append('circle').attr('r', 2.5);
+ // focus.append('line').classed('x', true);
+ // focus.append('line').classed('y', true);
 
   var barsGroup = svg.append('g')
     .attr('class', 'volume')
@@ -94,8 +102,20 @@
     };
     
   data('https://raw.githubusercontent.com/AndyZ-CYC/EquityMarket/main/data/sp500.csv').then(function(data) {
-    console.log(data.date);
+    console.log(data[0].date);
     console.log(data[0]);
+    
+    var curDate = data[200].date;
+    var i = bisectDate(data, curDate, 1);
+    console.log(i);
+    
+    var d0 = data[i - 1];
+      var d1 = data[i];
+      var currentPoint  = curDate  - d0.date > d1.date - curDate
+                              ? d1 : d0;
+    console.log(currentPoint);
+    
+    console.log(legendFormat(new Date(currentPoint.date)) + ' - Price: ' + currentPoint.price);
     
     // pre: 
     // x2  = d3.scaleTime().range([0, width]),
@@ -161,6 +181,9 @@
       .attr('transform', 'translate(' + width + ', 0)');
     
     var helperText = helper.append('text')
+    
+    //tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
+    //svg.call(tip)
 
     var priceTooltip = focus.append('g')
       .attr('class', 'chart__tooltip--price')
@@ -180,8 +203,8 @@
         priceTooltip.style('display', null);
       })
       .on('mouseout', function() {
-        helper.style('display', 'none');
-        priceTooltip.style('display', 'none');
+         helper.style('display', 'none');
+         priceTooltip.style('display', 'none');
       })
       .on('mousemove', mousemove);
       
@@ -207,19 +230,23 @@
       // Before promise is ready, we can't use date 
       if(this.date === undefined) {return};
       
-      var x0 = x.invert(d3.pointer(this)[0]);
-      var i = bisectDate(data, x0, 1);
+      var correspondingDate  = x.invert(d3.pointer(this)[0]);
+      var i = bisectDate(data, correspondingDate, 1);
       var d0 = data[i - 1];
       var d1 = data[i];
-      var d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-      helperText.text(legendFormat(new Date(d.date)) + ' - Price: ' + d.price);
-      priceTooltip.attr('transform', 'translate(' + x(d.date) + ',' + y(d.price) + ')');
+      var currentPoint  = correspondingDate  - d0.date > d1.date - correspondingDate
+                              ? d1 : d0;
+      //helperText.text(legendFormat(new Date(currentPoint.date)) + ' - Price: ' + currentPoint.price);
+      priceTooltip.attr('transform', `translate(${x(currentPoint.date)},     ${y(currentPoint.price)})`);
     }
         
-    function brushed() {
-      var ext = brush.extent();
-      if (brush.selection === null) {
-        x.domain(brush.empty() ? x2.domain() : brush.extent());
+    function brushed(event) {
+      var ext = d3.brushX([[0,0],[width, height]]).extent();
+      console.log(ext[0], ext[1]);
+      const selection = event.selection;
+      if (selection !== undefined) {
+        console.log("entered");
+        x.domain(selection === undefined ? x2.domain() : brush.extent());
         y.domain([
           d3.min(data.map(function(d) { return (d.date >= ext[0] && d.date <= ext[1]) ? d.price : max; })),
           d3.max(data.map(function(d) { return (d.date >= ext[0] && d.date <= ext[1]) ? d.price : min; }))
