@@ -1,12 +1,18 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
 # Results
 
 ## Part 1
 
 #### 1. Boxplot
 
-One of the most significant statistics of an index is its volatility. For the very 
-beginning, we would like to observe the volatilities of the three indices by creating 
-a boxplot: 
+One of the most significant statistics of an index is its volatility.
+For the very beginning, we would like to observe the volatilities of the
+three indices by creating a boxplot:
 
 ```{r}
 adj_price_minmax |>
@@ -18,10 +24,11 @@ adj_price_minmax |>
   labs(y = "normalized prices", x = "Index Name")
 ```
 
-From the boxplot, we can observe that the SSE Composite is a bit more volatile with min 
-and max values spanning the entire range from 0 to 1. However, the IQR of these three 
-indices are actually quite similar, indicating that there is not an enormous difference 
-in volatility among the three markets. 
+From the boxplot, we can observe that the SSE Composite is a bit more
+volatile with min and max values spanning the entire range from 0 to 1.
+However, the IQR of these three indices are actually quite similar,
+indicating that there is not an enormous difference in volatility among
+the three markets.
 
 ```{r}
 adj_price_minmax |>
@@ -33,19 +40,22 @@ adj_price_minmax |>
   labs(y = "Normalized prices", x = "Index Name")
 ```
 
-However, when we focus on the markets during the pandemic, we can observe that the 
-SSE Composite becomes more volatile with a significantly larger IQR comparing with 
-the other two indices. Meanwhile, we also noticed that, although the S&P 500 and the Nikkei 
-225 seem to be less volatile, both of these two indices have significantly more amount 
-of outliers. While the Nikkei 225 index has both large and small outliers, all of the outliers 
-of S&P 500 are smaller than $Q_1 - 1.5*IQR$. 
+However, when we focus on the markets during the pandemic, we can
+observe that the SSE Composite becomes more volatile with a
+significantly larger IQR comparing with the other two indices.
+Meanwhile, we also noticed that, although the S&P 500 and the Nikkei 225
+seem to be less volatile, both of these two indices have significantly
+more amount of outliers. While the Nikkei 225 index has both large and
+small outliers, all of the outliers of S&P 500 are smaller than
+$Q_1 - 1.5*IQR$.
 
 #### 2. Candlestick Charts
 
-To further observe the trends of the indices during the pandemic, we adapted a popular type 
-of diagram when it comes to the stock analysis, the Candlestick Charts. For the purpose of 
-tidyness, we created a function to produce the candlestick chart for the given index and 
-time range. 
+To further observe the trends of the indices during the pandemic, we
+adapted a popular type of diagram when it comes to the stock analysis,
+the Candlestick Charts. For the purpose of tidyness, we created a
+function to produce the candlestick chart for the given index and time
+range.
 
 ```{r}
 plot_candlestick <- function(target_symbol, from, to) {
@@ -76,39 +86,44 @@ plot_candlestick <- function(target_symbol, from, to) {
 plot_candlestick("S&P_500", "2020-01-01", "2020-12-31")
 ```
 
-For the candlestick chart of S&P 500 index in 2020, we can easily notice the drop 
-from approximately the end of February to end of March, which is when the pandemic 
-hitted. The market shrank by approximately thirty percent within a month. If we observe 
-the chart carefully, we can notice that there exist noticable gaps between some trading 
-days, indicating that the market was continuously impacted even after it was close. The 
-daily "candles" during this period were also significantly longer than the others, indicating 
-a volatile market. However, we can notice that the market recovered gradually in the 
-following six months and continued with a growing trend. 
+For the candlestick chart of S&P 500 index in 2020, we can easily notice
+the drop from approximately the end of February to end of March, which
+is when the pandemic hitted. The market shrank by approximately thirty
+percent within a month. If we observe the chart carefully, we can notice
+that there exist noticable gaps between some trading days, indicating
+that the market was continuously impacted even after it was close. The
+daily "candles" during this period were also significantly longer than
+the others, indicating a volatile market. However, we can notice that
+the market recovered gradually in the following six months and continued
+with a growing trend.
 
 ```{r, fig.width=12, fig.height=7}
 plot_candlestick("Nikkei_225", "2020-01-01", "2020-12-31")
 ```
 
-Similar with the S&P 500, the Japanese market represented by Nikkei 225 index also 
-took a significant impact from Covid-19 during February and March in 2020. The number of 
-green bars in this chart during the pandemic period are even less than the ones in the 
-previous chart of S&P 500 index. However, the average length of each "candle" of Nikkei 225 
-is shorter than the one of S&P 500. This shows that the Japanese market shrank in a more 
-stable path. In addition, the price of the index recovered from the impact within only 
-approximately 4 month, which is shorter than the US market. 
+Similar with the S&P 500, the Japanese market represented by Nikkei 225
+index also took a significant impact from Covid-19 during February and
+March in 2020. The number of green bars in this chart during the
+pandemic period are even less than the ones in the previous chart of S&P
+500 index. However, the average length of each "candle" of Nikkei 225 is
+shorter than the one of S&P 500. This shows that the Japanese market
+shrank in a more stable path. In addition, the price of the index
+recovered from the impact within only approximately 4 month, which is
+shorter than the US market.
 
 ```{r, fig.width=12, fig.height=7}
 plot_candlestick("SSE_Composite", "2020-01-01", "2020-12-31")
 ```
 
-SSE Composite index, on the other side, has a very different trend comparing with 
-the other two indices. Although there is a drop in price between February and March, 
-the market rebounded back to previous prices during the February. After April, the 
-market gradually has recovered with an upward trend until July, when a significant 
-boost happened to the local market. This boost might be caused by the local policy of 
-opening up after the quarantines. Overall, the trend of SSE Composite is different, and 
-the volatility of the Chinese market was increased due to the potential stimulation of 
-policies. 
+SSE Composite index, on the other side, has a very different trend
+comparing with the other two indices. Although there is a drop in price
+between February and March, the market rebounded back to previous prices
+during the February. After April, the market gradually has recovered
+with an upward trend until July, when a significant boost happened to
+the local market. This boost might be caused by the local policy of
+opening up after the quarantines. Overall, the trend of SSE Composite is
+different, and the volatility of the Chinese market was increased due to
+the potential stimulation of policies.
 
 #### 3. Time Series Line charts
 
@@ -119,13 +134,25 @@ adj_price_minmax |>
   geom_point(size = 1.5, fill = "black", shape = 21) + 
   geom_line(lwd = 1) + 
   facet_wrap(~symbol, nrow = 3, scales = "free_y") + 
-  geom_smooth(method = "loess", span = .25, se = FALSE, linewidth = 1, colour = "black", linetype = 1) +
+  geom_smooth(method = "loess", span = .2, se = FALSE, linewidth = 1, colour = "black", linetype = 1) +
   ggtitle("Normalized prices of indices from 2016 to 2020") + 
   labs(x = "", y = "normalized price") +
   theme_grey(16) +
   theme(text = element_text(size = 28), 
         legend.key.size = unit(1.5, 'cm'))
 ```
+
+By aligning the three indices together, there are several things that we can easily notice. 
+First of all, the S&P 500 index is the most stable index with a smooth upward trend line, 
+while the SSE Composite is obviously more unstable in the last five years. In addition, the 
+US market and Japanese market performs very similar in the general trends if we compare the 
+two smooth lines. Lastly, the pandemic contributed to the largest drop of S&P 500 and 
+Nikkei 225 in 5 years. However, the drop in SSE Composite caused by the pandemic was 
+relatively insignificant comparing with the overall performance of SSE Composite in 
+5 years. 
+
+To give the impacts of Covid-19 on markets a closer look, we focus on the data in 2020 and 
+created another similar plot:
 
 ```{r, fig.width=12, fig.height=7, warning = FALSE}
 adj_price_minmax |>
@@ -135,15 +162,22 @@ adj_price_minmax |>
   geom_point(size = 2.5, fill = "black", shape = 21) + 
   geom_line(lwd = 1.5) + 
   facet_wrap(~symbol, nrow = 3, scales = "free_y") + 
-  geom_smooth(method = "loess", span = .25, se = FALSE, linewidth = 1, colour = "black", linetype = 1) +
-  ggtitle("Normalized prices of indices i2020") + 
+  geom_smooth(method = "loess", span = .2, se = FALSE, linewidth = 1, colour = "black", linetype = 1) +
+  ggtitle("Normalized prices of indices in 2020") + 
   labs(x = "", y = "normalized price") +
   theme_grey(16) +
   theme(text = element_text(size = 28), 
         legend.key.size = unit(1.5, 'cm'))
 ```
 
-#### Returns 
+With the zoomed data, we can observe that although the overall trends of the markets 
+are similar, all dropped before April and turned upward, the S&P index and the Nikkei 225 
+index shares more similarity when it comes to the shapes and detailed trends of the prices 
+in 2020. From this plot, we can better infer that the Chinese equity market was less influenced 
+by the Covid-19 pandemic, while both the US market and the Japanese market were influenced 
+by the pandemic negatively in a similar way. 
+
+#### Returns
 
 ```{r}
 data_reg |>
@@ -202,7 +236,6 @@ data_reg |>
         axis.title.y = element_blank())
 ```
 
-
 ## Part 2
 
 ```{r fig.width=9, fig.height=6}
@@ -216,6 +249,7 @@ ggplot(data_sec, aes(x = adjusted, y = as.factor(sector), fill = factor(stat(qua
 ```
 
 #### Timeseries line plots
+
 ```{r}
 data_sec %>%
   mutate(sector = fct_reorder2(sector, date, adjusted)) %>%
@@ -235,6 +269,7 @@ data_sec |> filter(date >= "2020-01-01" & date <= "2020-12-31") |>
 ```
 
 #### Timeseries Smooth plots
+
 ```{r fig.width=9, fig.height=7}
 ggplot(data_sec, aes(date, adjusted)) + 
   facet_wrap(~ sector, scales = 'free_x') +
@@ -251,5 +286,3 @@ ggplot(aes(date, adjusted)) +
   scale_x_date(labels = date_format("%m")) +
   ggtitle("Faceted Smooth plots for 11 sectors in 2020")
 ```
-
-
