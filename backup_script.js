@@ -93,10 +93,11 @@
   // write async function to get the data promise
   async function data(pathToCsv) {
         var dataset = await d3.csv(pathToCsv, function (d) {
-            d.date = parseDate(d.date)
-            d.price = +d.close
-            d.volume = +d.volume
-            return d
+            return {
+              date  : parseDate(d.date),
+              price : +d.close,
+              volume : +d.volume,
+            }
         })
         return dataset
     };
@@ -247,7 +248,7 @@
       const selection = event.selection;
       if (selection !== undefined) {
         console.log("entered");
-        x.domain(selection === undefined ? x2.domain() : brush.extent());
+        x.domain(brush.extent());
         y.domain([
           d3.min(data.map(function(d) { return (d.date >= ext[0] && d.date <= ext[1]) ? d.price : max; })),
           d3.max(data.map(function(d) { return (d.date >= ext[0] && d.date <= ext[1]) ? d.price : min; }))
