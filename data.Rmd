@@ -11,7 +11,7 @@ library(ggridges)
 ## Sources
 
 ```{r}
-start_date <- "2010-01-01"
+start_date <- "2016-01-01"
 end_date <- "2020-12-31"
 ```
 
@@ -56,6 +56,20 @@ data_reg |>
 ```
 
 ```{r}
+# adjust to USD
+jpy_usd_avg <- 111.1924
+chy_usd_avg <- 6.874
+data_reg |> 
+  mutate(exg_rate = 
+           case_when(
+             (symbol == "Nikkei_225") ~ jpy_usd_avg, 
+             (symbol == "SSE_Composite") ~ chy_usd_avg, 
+             TRUE ~ 1
+           )) |>
+  mutate(across(c(open, high, low, close, adjusted), ~ .x / exg_rate)) -> data_reg
+```
+
+```{r}
 # Standardize (take log) - for boxplot
 data_reg |>
   mutate(log_price = log(adjusted)) |>
@@ -91,6 +105,7 @@ data_sec |>
 ```{r}
 summary(data_sec)
 ```
+
 ```{r}
 #md.pattern(data_sec)
 colSums(is.na(data_sec)) %>%  

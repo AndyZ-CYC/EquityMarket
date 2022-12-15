@@ -20,7 +20,7 @@ adj_price_std |>
   ggplot(aes(x = symbol, y = log_price)) + 
   geom_boxplot() + 
   coord_flip() +
-  ggtitle("Boxplots of Log adjusted prices of three indicies from 2010 to 2021") + 
+  ggtitle("Boxplots of Log adjusted prices of three indicies in 2020") + 
   labs(y = "log adjusted prices", x = "Index Name")
 ```
 
