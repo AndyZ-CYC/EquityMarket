@@ -71,7 +71,7 @@ adj_price_std |>
   mutate(symbol = forcats::fct_reorder2(symbol, date, log_price)) |>
   ggplot(aes(x = date, y = log_price, color = symbol)) +
   geom_line() +
-  ggtitle("Log adjusted prices of indices from 2010 to 2022") + 
+  ggtitle("Log adjusted prices of indices from 2016 to 2020") + 
   labs(x = "", y = "log price") +
   theme_grey(16)
 
@@ -86,7 +86,7 @@ ggplot(data_sec, aes(x = adjusted, y = as.factor(symbol), fill = factor(stat(qua
     quantiles = 4, quantile_lines = TRUE
   ) +
   scale_fill_viridis_d(name = "Quartiles") +
-  ggtitle("Ridgeline plots for 11 sectors from 2010 to 2021")
+  ggtitle("Ridgeline plots for 11 sectors from 2016 to 2020")
 ```
 
 #### Timeseries line plots
@@ -94,7 +94,7 @@ ggplot(data_sec, aes(x = adjusted, y = as.factor(symbol), fill = factor(stat(qua
 ggplot(data_sec,aes(x=date,y=adjusted))+
   geom_line(aes(color=symbol))+
   scale_x_date(date_breaks="1 year", date_labels="%Y") +
-  ggtitle("Line plots for 11 sectors from 2010 to 2021")
+  ggtitle("Line plots for 11 sectors from 2016 to 2020")
 ```
 
 
@@ -110,7 +110,8 @@ data_sec |> filter(date >= "2020-01-01" & date <= "2020-12-31") |>
 ```{r fig.width=9, fig.height=7}
 ggplot(data_sec, aes(date, adjusted)) + 
   facet_wrap(~ symbol, scales = 'free_x') +
-  geom_smooth(span = 0.1)
+  geom_smooth(span = 0.1) +
+  ggtitle("Faceted Smooth plots for 11 sectors from 2016 to 2020")
 ```
 
 ```{r fig.width=9, fig.height=7}
@@ -119,7 +120,8 @@ ggplot(aes(date, adjusted)) +
   facet_wrap(~ symbol, scales = 'free_x') +
   geom_smooth(span = 0.12) + 
   labs(x = "Month") +
-  scale_x_date(labels = date_format("%m"))
+  scale_x_date(labels = date_format("%m")) +
+  ggtitle("Faceted Smooth plots for 11 sectors in 2020")
 ```
 
 
