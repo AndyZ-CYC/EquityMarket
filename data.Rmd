@@ -251,10 +251,13 @@ tester_list <- list(id = "S&P500", data = tester)
 library(jsonlite)
 tester_json <- toJSON(tester_list, auto_unbox = TRUE)
 
-save(tester_json, file = "data/sp500.json")
+write(tester_json, file = "data/sp500.json")
 ```
 
 ```{r}
 write.csv(data_d3, "data/sp500.csv")
+```
+```{r}
+tester_json
 ```
 
