@@ -183,7 +183,7 @@ Another method of displaying volatility and comparing impacts from the pandemic
 across three markets is to use daily returns. In the following part, the log daily 
 returns of the three indices are plotted separately to be observed. 
 
-```{r}
+```{r, fig.width=6, fig.height=3}
 data_reg |>
   filter(symbol == "S&P_500") |>
   mutate(return = log(adjusted) - log(lag(adjusted))) |>
@@ -199,14 +199,17 @@ data_reg |>
   scale_fill_manual(values = c("normal" = "#999999", "pandemic" = "#E69F00")) + 
   ggtitle("Log Returns of S&P 500 index before and during the pandemic") + 
   theme(legend.title = element_blank(), 
-        axis.title.y = element_blank())
+        axis.title.y = element_blank(), 
+        text = element_text(size = 18), 
+        legend.key.size = unit(1, 'cm'))
 ```
 
-In this plot, we observed a clear increase in volatility during the index. Before 
-2020, the log returns are represented with grey vertical bars and has a relatively 
-low range. After the pandemic hit the market
+In this plot, we observed a clear increase in volatility during the Covid-19 pandemic. 
+Before 2020, the log returns are represented with grey vertical bars and has a relatively 
+low range. After the pandemic hit the market, the amplitude of log returns increased by 
+a large amount for several month till it drop back down to the normal level. 
 
-```{r}
+```{r, fig.width=6, fig.height=3}
 data_reg |>
   filter(symbol == "Nikkei_225") |>
   mutate(return = log(adjusted) - log(lag(adjusted))) |>
@@ -222,10 +225,14 @@ data_reg |>
   scale_fill_manual(values = c("normal" = "#999999", "pandemic" = "#E69F00")) + 
   ggtitle("Log Returns of Nikkei 225 index before and during the pandemic") + 
   theme(legend.title = element_blank(), 
-        axis.title.y = element_blank())
+        axis.title.y = element_blank(), 
+        text = element_text(size = 18), 
+        legend.key.size = unit(1, 'cm'))
 ```
 
-```{r}
+From the return plots, 
+
+```{r, fig.width=6, fig.height=3}
 data_reg |>
   filter(symbol == "SSE_Composite") |>
   mutate(return = log(adjusted) - log(lag(adjusted))) |>
@@ -241,7 +248,9 @@ data_reg |>
   scale_fill_manual(values = c("normal" = "#999999", "pandemic" = "#E69F00")) + 
   ggtitle("Log Returns of SSE Composite index before and during the pandemic") + 
   theme(legend.title = element_blank(), 
-        axis.title.y = element_blank())
+        axis.title.y = element_blank(), 
+        text = element_text(size = 18), 
+        legend.key.size = unit(1, 'cm'))
 ```
 
 ## Part 2
