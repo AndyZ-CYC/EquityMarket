@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Interactive component | Equity Market Research</title>
   <meta name="description" content="Chapter 5 Interactive component | Equity Market Research" />
-  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Interactive component | Equity Market Research" />
   <meta property="og:type" content="book" />
@@ -102,7 +102,7 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#sp-500-interactive-candelstick-chart-in-2020"><i class="fa fa-check"></i><b>5.1</b> S&amp;P 500 interactive candelstick chart in 2020</a></li>
+<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#sp-500-interactive-candlestick-chart-in-2020"><i class="fa fa-check"></i><b>5.1</b> S&amp;P 500 interactive candlestick chart in 2020</a></li>
 <li class="chapter" data-level="5.2" data-path="interactive-component.html"><a href="interactive-component.html#analysis-and-justification"><i class="fa fa-check"></i><b>5.2</b> Analysis and justification</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
@@ -127,9 +127,9 @@
             <section class="normal" id="section-">
 <div id="interactive-component" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Interactive component<a href="interactive-component.html#interactive-component" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="sp-500-interactive-candelstick-chart-in-2020" class="section level2 hasAnchor" number="5.1">
-<h2><span class="header-section-number">5.1</span> S&amp;P 500 interactive candelstick chart in 2020<a href="interactive-component.html#sp-500-interactive-candelstick-chart-in-2020" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<link rel=stylesheet href="style.css" type="text/css" media=screen>
+<div id="sp-500-interactive-candlestick-chart-in-2020" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> S&amp;P 500 interactive candlestick chart in 2020<a href="interactive-component.html#sp-500-interactive-candlestick-chart-in-2020" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><link rel=stylesheet href="style.css" type="text/css" media=screen></p>
 <script src="https://d3js.org/d3.v7.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js' charset="utf-8"></script>
 <div id="plot">
@@ -139,6 +139,16 @@
 </div>
 <div id="analysis-and-justification" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Analysis and justification<a href="interactive-component.html#analysis-and-justification" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For the interactive chart, we decided to re-plot the S&amp;P 500 candlestick
+chart in 2020 for a better observation of the index. We add the
+mouse-over interaction to display the exact data of each “candle” of a
+trading day, including the open, close, high, and low prices. With the
+exact data displayed, we can observe the amount of drop downs more
+directly. For example, the largest drop down happened around March 11
+and 12, when the price of S&amp;P 500 decreased from approximately 2800 to
+2480 in two days (around <span class="math inline">\(12.85%\)</span>). Such shock of the US market is
+unprecedented in the last ten years, showing that the US market reacted
+drastically to the Covid-19.</p>
 
 </div>
 </div>
@@ -202,6 +212,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
