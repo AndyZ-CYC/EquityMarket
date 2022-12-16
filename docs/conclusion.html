@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Conclusion | Equity Market Research</title>
   <meta name="description" content="Chapter 6 Conclusion | Equity Market Research" />
-  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Conclusion | Equity Market Research" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Yaoyuan Zhang, Zimu An" />
 
 
-<meta name="date" content="2022-11-01" />
+<meta name="date" content="2022-12-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -83,9 +83,28 @@
 <li class="chapter" data-level="3.1" data-path="data.html"><a href="data.html#sources"><i class="fa fa-check"></i><b>3.1</b> Sources</a></li>
 <li class="chapter" data-level="3.2" data-path="data.html"><a href="data.html#cleaning-transformation"><i class="fa fa-check"></i><b>3.2</b> Cleaning / transformation</a></li>
 <li class="chapter" data-level="3.3" data-path="data.html"><a href="data.html#missing-value-analysis"><i class="fa fa-check"></i><b>3.3</b> Missing value analysis</a></li>
+<li class="chapter" data-level="3.4" data-path="data.html"><a href="data.html#data-for-interactive-d3-graph"><i class="fa fa-check"></i><b>3.4</b> Data For Interactive D3 Graph</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a></li>
-<li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a></li>
+<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#equity-market-in-different-regions"><i class="fa fa-check"></i><b>4.1</b> Equity market in different regions</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="results.html"><a href="results.html#boxplot"><i class="fa fa-check"></i><b>4.1.1</b> Boxplot</a></li>
+<li class="chapter" data-level="4.1.2" data-path="results.html"><a href="results.html#candlestick-charts"><i class="fa fa-check"></i><b>4.1.2</b> Candlestick Charts</a></li>
+<li class="chapter" data-level="4.1.3" data-path="results.html"><a href="results.html#time-series-line-charts"><i class="fa fa-check"></i><b>4.1.3</b> Time Series Line charts</a></li>
+<li class="chapter" data-level="4.1.4" data-path="results.html"><a href="results.html#returns"><i class="fa fa-check"></i><b>4.1.4</b> Returns</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="results.html"><a href="results.html#equity-market-across-sectors"><i class="fa fa-check"></i><b>4.2</b> Equity market across sectors</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="results.html"><a href="results.html#timeseries-line-plots"><i class="fa fa-check"></i><b>4.2.1</b> Timeseries line plots</a></li>
+<li class="chapter" data-level="4.2.2" data-path="results.html"><a href="results.html#timeseries-smooth-plots"><i class="fa fa-check"></i><b>4.2.2</b> Timeseries Smooth plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#sp-500-interactive-candlestick-chart-in-2020"><i class="fa fa-check"></i><b>5.1</b> S&amp;P 500 interactive candlestick chart in 2020</a></li>
+<li class="chapter" data-level="5.2" data-path="interactive-component.html"><a href="interactive-component.html#analysis-and-justification"><i class="fa fa-check"></i><b>5.2</b> Analysis and justification</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -108,6 +127,26 @@
             <section class="normal" id="section-">
 <div id="conclusion" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Conclusion<a href="conclusion.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>After observing the plots across the equity markets in three regions, we can make several
+conclusions. First of all, the S&amp;P 500 was the most stable index before the pandemic, while
+the Chinese equity market represented by the SSE Composite index is more volatile. Meanwhile,
+The Japanese market, represented by the Nikkei 225 index, performs similarly to the US market.
+During the pandemic, the US equity market reacted most drastically with greatly increased
+volatility and downward-leaping stock prices. The Japanese equity market performed similarly
+to the US market with a similar overall trend but to a less extent. On the other side, the
+Chinese equity market seems to receive the most negligible impact from the pandemic. The overall
+volatility of the stock market remained roughly the same.</p>
+<p>As for the impact of pandemic on the 11 sectors in the U.S., we first observed
+through the ridgelines plot that they have different distributions, The stock price of
+sectors such as Utilities, Real Estate follow a normal distribution, indicating their stability; price of sectors
+such as Energy is bimodal, demonstrates that it might be caused by asudden shift; price of IT
+shows what the distribution of highly volatile and potential industry might be. Through
+such observation, we then looked at their line plots and smoothed plots to find out that
+the sectors with higher price are more dependent on the market and are more prone to pandemic
+than sectors with already lower stock prices. There might be a correlation. We also observed
+that the impact of pandemic is not intransigent as majority of the sectors all experienced
+an increase after the outbreak. As a result, we can definitely conclude that the outbreak of COVID-19
+brought more or less impact across all industries, but they strive to recover from the crisis nevertheless.</p>
 
 </div>
             </section>
@@ -170,6 +209,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

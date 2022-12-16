@@ -134,78 +134,78 @@
 <p>One of the most significant statistics of an index is its volatility.
 For the very beginning, we would like to observe the volatilities of the
 three indices by creating a boxplot:</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-551-1.png" width="672" /></p>
 <p>From the boxplot, we can observe that the SSE Composite is a bit more
 volatile with min and max values spanning the entire range from 0 to 1.
 However, the IQR of these three indices are actually quite similar,
 indicating that there is not an enormous difference in volatility among
 the three markets.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-552-1.png" width="672" /></p>
 <p>However, when we focus on the markets during the pandemic, we can
 observe that the SSE Composite becomes more volatile with a
-significantly larger IQR comparing with the other two indices.
-Meanwhile, we also noticed that, although the S&amp;P 500 and the Nikkei 225
+significantly larger IQR compared with the other two indices.
+Meanwhile, we also noticed that although the S&amp;P 500 and the Nikkei 225
 seem to be less volatile, both of these two indices have significantly
 more amount of outliers. While the Nikkei 225 index has both large and
-small outliers, all of the outliers of S&amp;P 500 are smaller than
+small outliers, all of the outliers of the S&amp;P 500 are smaller than
 <span class="math inline">\(Q_1 - 1.5*IQR\)</span>.</p>
 </div>
 <div id="candlestick-charts" class="section level3 hasAnchor" number="4.1.2">
 <h3><span class="header-section-number">4.1.2</span> Candlestick Charts<a href="results.html#candlestick-charts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To further observe the trends of the indices during the pandemic, we
-adapted a popular type of diagram when it comes to the stock analysis,
-the Candlestick Charts. For the purpose of tidyness, we created a
+adopted a popular type of diagram when it comes to stock analysis,
+the Candlestick Charts. For the purpose of tidiness, we created a
 function to produce the candlestick chart for the given index and time
 range.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="100%" height="80%" /></p>
-<p>For the candlestick chart of S&amp;P 500 index in 2020, we can easily notice
-the drop from approximately the end of February to end of March, which
-is when the pandemic hit. The market shrank by approximately thirty
+<p><img src="finalproj_files/figure-html/unnamed-chunk-554-1.png" width="100%" height="80%" /></p>
+<p>For the candlestick chart of the S&amp;P 500 index in 2020, we can quickly notice
+the drop from approximately the end of February to the end of March, which
+is when the pandemic hit. The market shrank by roughly thirty
 percent within a month. If we observe the chart carefully, we can notice
-that there exist noticable gaps between some trading days, indicating
-that the market was continuously impacted even after it was close. The
+that there exist noticeable gaps between some trading days, indicating
+that the market was continuously impacted even after it was closed. The
 daily “candles” during this period were also significantly longer than
 the others, indicating a volatile market. However, we can notice that
 the market recovered gradually in the following six months and continued
 with a growing trend.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="100%" height="80%" /></p>
-<p>Similar with the S&amp;P 500, the Japanese market represented by Nikkei 225
+<p><img src="finalproj_files/figure-html/unnamed-chunk-555-1.png" width="100%" height="80%" /></p>
+<p>Similar to the S&amp;P 500, the Japanese market represented by the Nikkei 225
 index also took a significant impact from Covid-19 during February and
-March in 2020. The number of green bars in this chart during the
+March 2020. The number of green bars in this chart during the
 pandemic period are even less than the ones in the previous chart of S&amp;P
-500 index. However, the average length of each “candle” of Nikkei 225 is
-shorter than the one of S&amp;P 500. This shows that the Japanese market
+500 index. However, the average length of each “candle” of the Nikkei 225 is
+shorter than the one of the S&amp;P 500. This shows that the Japanese market
 shrank in a more stable path. In addition, the price of the index
-recovered from the impact within only approximately 4 month, which is
+recovered from the impact within only approximately 4 months, which is
 shorter than the US market.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="100%" height="80%" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-556-1.png" width="100%" height="80%" /></p>
 <p>SSE Composite index, on the other side, has a very different trend
-comparing with the other two indices. Although there is a drop in price
+compared with the other two indices. Although there is a drop in price
 between February and March, the market rebounded back to previous prices
-during the February. After April, the market gradually has recovered
+during February. After April, the market gradually recovered
 with an upward trend until July, when a significant boost happened to
 the local market. This boost might be caused by the local policy of
-opening up after the quarantines. Overall, the trend of SSE Composite is
+opening up after the quarantines. Overall, the trend of the SSE Composite is
 different, and the volatility of the Chinese market was increased due to
 the potential stimulation of policies.</p>
 </div>
 <div id="time-series-line-charts" class="section level3 hasAnchor" number="4.1.3">
 <h3><span class="header-section-number">4.1.3</span> Time Series Line charts<a href="results.html#time-series-line-charts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="100%" height="100%" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-557-1.png" width="100%" height="100%" /></p>
 <p>By aligning the three indices together, there are several things that we can easily notice.
 First of all, the S&amp;P 500 index is the most stable index with a smooth upward trend line,
 while the SSE Composite is obviously more unstable in the last five years. In addition, the
-US market and Japanese market performs very similar in the general trends if we compare the
-two smooth lines. Lastly, the pandemic contributed to the largest drop of S&amp;P 500 and
-Nikkei 225 in 5 years. However, the drop in SSE Composite caused by the pandemic was
-relatively insignificant comparing with the overall performance of SSE Composite in
+US market and the Japanese market perform very similarly in the general trends if we compare the
+two smooth lines. Lastly, the pandemic contributed to the largest drop in the S&amp;P 500 and
+the Nikkei 225 in 5 years. However, the drop in SSE Composite caused by the pandemic was
+relatively insignificant comparing with the overall performance of the SSE Composite in
 5 years.</p>
 <p>To give the impacts of Covid-19 on markets a closer look, we focus on the data in 2020 and
 created another similar plot:</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="100%" height="100%" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-558-1.png" width="100%" height="100%" /></p>
 <p>With the zoomed data, we can observe that although the overall trends of the markets
 are similar, all dropped before April and turned upward, the S&amp;P index and the Nikkei 225
-index shares more similarity when it comes to the shapes and detailed trends of the prices
+index share more similarity regarding the shapes and detailed trends of the prices
 in 2020. From this plot, we can better infer that the Chinese equity market was less influenced
 by the Covid-19 pandemic, while both the US market and the Japanese market were influenced
 by the pandemic negatively in a similar way.</p>
@@ -215,22 +215,22 @@ by the pandemic negatively in a similar way.</p>
 <p>Another method of displaying volatility and comparing impacts from the pandemic
 across three markets is to use daily returns. In the following part, the log daily
 returns of the three indices are plotted separately to be observed.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-13-1.png" width="100%" height="60%" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-559-1.png" width="100%" height="60%" /></p>
 <p>In this plot, we observed a clear increase in volatility during the Covid-19 pandemic.
-Before 2020, the log returns are represented with grey vertical bars and has a relatively
+Before 2020, the log returns are represented with grey vertical bars and have a relatively
 low range. After the pandemic hit the market, the amplitude of log returns increased by
-a large amount for several month till it drop back down to the normal level.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="100%" height="60%" /></p>
-<p>From the return plots, we can observe that, although Nikkei 225 looks similar with
-S&amp;P 500 in previous plots, it is still more volatile in normal days. If we look at
-the return plots along, we can say that the Japanese market is actually not impacted
-as severe as the US market.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="100%" height="60%" /></p>
+a large amount for several month until it drop back down to the normal level.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-560-1.png" width="100%" height="60%" /></p>
+<p>From the return plots, we can observe that, although Nikkei 225 looks similar to the
+S&amp;P 500 in previous plots, it is still more volatile on normal days. If we look at
+the return plots alone, we can say that the Japanese market is actually not impacted
+as severely as the US market.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-561-1.png" width="100%" height="60%" /></p>
 <p>While the Nikkei 225 still has obvious downward clusters in daily returns, we can see
-that such clusters are even smaller in the return chart of SSE Composite. The volatility
-of SSE Composite’s daily returns remained on the approximately same level before and
+that such clusters are even smaller in the return chart of the SSE Composite. The volatility
+of the SSE Composite’s daily returns remained at approximately the same level before and
 during the pandemic. Hence, from this graph, we can further infer that the Chinese
-market was the least influenced one by the pandemic among the three markets.</p>
+market was least influenced by the pandemic among the three markets.</p>
 </div>
 </div>
 <div id="equity-market-across-sectors" class="section level2 hasAnchor" number="4.2">
@@ -240,7 +240,7 @@ to see how the pandemic may have influenced their stock prices. We will first cr
 ridgeline plots with visualization of 4 quartiles for the adjusted prices of the 11
 sectors that ranges from year 2016 to 2020. This gives an overview for their distribution
 as well as modality.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-16-1.png" width="864" />
+<p><img src="finalproj_files/figure-html/unnamed-chunk-562-1.png" width="864" />
 This plot delivers several important information. First, there are multiple sectors with
 a fairly normal distribution. Utilities, Real Estate, Materials, Consumer Staples and Communication services
 all have a mode in the middle with an almost perfect normal curve. This indicates that they
@@ -258,8 +258,8 @@ Its’ stock price may increase higher than other sectors but it might also be p
 <h3><span class="header-section-number">4.2.1</span> Timeseries line plots<a href="results.html#timeseries-line-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Now we will look at the line plots for these sectors from 2016 to 2020. Such plots
 visualizes the trends along time more clearly.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-17-1.png" width="100%" height="60%" />
-In the above plot, there are two emphasis we want to address. First, the top three
+<p><img src="finalproj_files/figure-html/unnamed-chunk-563-1.png" width="100%" height="60%" /></p>
+<p>In the above plot, there are two emphasis we want to address. First, the top three
 sector in adjusted price is exactly what we mentioned in the ridgeline plot with multimodality
 and a flat curve, which is Information Technology, Health Care, and Consumer Discretionary
 correspondingly. Second, we can see that all sectors prices are increasing in a somewhat
@@ -267,8 +267,8 @@ steady pace from 2016 to 2018, with a sudden drop in late 2018. Then, they conti
 to increase with some instability and finally we observe a significant drop in price
 in the first quarter of 2020, which is exactly during the outbreak of pandemic. To take
 a closer look at year 2020, we will create another line plot that zooms into this year.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="100%" height="80%" />
-In this plot, we can further confirm that the more potential sectors with high stock prices
+<p><img src="finalproj_files/figure-html/unnamed-chunk-564-1.png" width="100%" height="80%" /></p>
+<p>In this plot, we can further confirm that the more potential sectors with high stock prices
 took a larger hit during the pandemic, while such impact is lessen as the stock prices goes
 down for other sectors. For example, the adjusted price of Information Technology was around
 1800 at the start of March but later dropped to around 1250, while the Communication Services’
@@ -277,8 +277,8 @@ in price.</p>
 </div>
 <div id="timeseries-smooth-plots" class="section level3 hasAnchor" number="4.2.2">
 <h3><span class="header-section-number">4.2.2</span> Timeseries Smooth plots<a href="results.html#timeseries-smooth-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-19-1.png" width="100%" height="60%" />
-In this plot, we used geom_smooth to generate smooth lines to approximate the previous line plot.
+<p><img src="finalproj_files/figure-html/unnamed-chunk-565-1.png" width="100%" height="60%" /></p>
+<p>In this plot, we used geom_smooth to generate smooth lines to approximate the previous line plot.
 We then reordered according to ending stock price of the final day. We can clearly observe that
 the extent of stock price drop during March for each sector is proportional/positively correlated with
 their stock prices. The dynamic and changes of the curve is more dramatic in the Information technology
