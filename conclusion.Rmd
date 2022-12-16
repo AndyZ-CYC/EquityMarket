@@ -1,2 +1,13 @@
 # Conclusion
 
+As for the impact of pandemic on the 11 sectors in the U.S., we first observed
+through the ridgelines plot that they have different distributions, The stock price of
+sectors such as Utilities, Real Estate follow a normal distribution, indicating their stability; price of sectors
+such as Energy is bimodal, demonstrates that it might be caused by asudden shift; price of IT
+shows what the distribution of highly volatile and potential industry might be. Through
+such observation, we then looked at their line plots and smoothed plots to find out that
+the sectors with higher price are more dependent on the market and are more prone to pandemic
+than sectors with already lower stock prices. There might be a correlation. We also observed
+that the impact of pandemic is not intransigent as majority of the sectors all experienced
+an increase after the outbreak. As a result, we can definitely conclude that the outbreak of COVID-19
+brought more or less impact across all industries, but they strive to recover from the crisis nevertheless.
