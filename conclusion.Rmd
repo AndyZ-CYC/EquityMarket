@@ -1,5 +1,15 @@
 # Conclusion
 
+After observing the plots across the equity markets in three regions, we can make several 
+conclusions. First of all, the S&P 500 was the most stable index before the pandemic, while 
+the Chinese equity market represented by the SSE Composite index is more volatile. Meanwhile, 
+The Japanese market, represented by the Nikkei 225 index, performs similarly to the US market. 
+During the pandemic, the US equity market reacted most drastically with greatly increased 
+volatility and downward-leaping stock prices. The Japanese equity market performed similarly 
+to the US market with a similar overall trend but to a less extent. On the other side, the 
+Chinese equity market seems to receive the most negligible impact from the pandemic. The overall 
+volatility of the stock market remained roughly the same.
+
 As for the impact of pandemic on the 11 sectors in the U.S., we first observed
 through the ridgelines plot that they have different distributions, The stock price of
 sectors such as Utilities, Real Estate follow a normal distribution, indicating their stability; price of sectors
