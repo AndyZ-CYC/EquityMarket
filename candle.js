@@ -1,4 +1,4 @@
-const width = 1000
+const width = 750
 const height = 500
 const margin = {top: 50, right: 30, bottom: 30, left: 80}
 
@@ -32,7 +32,7 @@ function drawAxisX(data) {
     const axis = d3.axisBottom(scale)
         .ticks(10)
         .tickFormat(v => {
-            return dates[v];
+            return dates[v].substring(5);
         })
 
     svg.append('g')

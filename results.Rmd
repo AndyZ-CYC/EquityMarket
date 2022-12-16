@@ -366,7 +366,7 @@ ggplot(data_sec, aes(x = adjusted, y = as.factor(sector), fill = factor(stat(qua
 
 ### Timeseries line plots
 
-```{r}
+```{r, out.width="100%", out.height="60%"}
 data_sec %>%
   mutate(sector = fct_reorder2(sector, date, adjusted)) %>%
   ggplot(aes(date, adjusted, color = sector)) +
@@ -375,7 +375,7 @@ data_sec %>%
   ggtitle("Line plots for 11 sectors from 2016 to 2020")
 ```
 
-```{r fig.width=9, fig.height=6}
+```{r, out.width="100%", out.height="80%"}
 data_sec |> filter(date >= "2020-01-01" & date <= "2020-12-31") |>
   mutate(sector = fct_reorder2(sector, date, adjusted)) %>%
   ggplot(aes(date, adjusted, color = sector)) +
