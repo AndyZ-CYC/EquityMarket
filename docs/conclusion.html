@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Conclusion | Equity Market Research</title>
   <meta name="description" content="Chapter 6 Conclusion | Equity Market Research" />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Conclusion | Equity Market Research" />
   <meta property="og:type" content="book" />
@@ -139,7 +139,7 @@ volatility of the stock market remained roughly the same.</p>
 <p>As for the impact of pandemic on the 11 sectors in the U.S., we first observed
 through the ridgelines plot that they have different distributions, The stock price of
 sectors such as Utilities, Real Estate follow a normal distribution, indicating their stability; price of sectors
-such as Energy is bimodal, demonstrates that it might be caused by asudden shift; price of IT
+such as Energy is bimodal, demonstrates that it might be caused by a sudden shift; price of IT
 shows what the distribution of highly volatile and potential industry might be. Through
 such observation, we then looked at their line plots and smoothed plots to find out that
 the sectors with higher price are more dependent on the market and are more prone to pandemic
@@ -147,6 +147,12 @@ than sectors with already lower stock prices. There might be a correlation. We a
 that the impact of pandemic is not intransigent as majority of the sectors all experienced
 an increase after the outbreak. As a result, we can definitely conclude that the outbreak of COVID-19
 brought more or less impact across all industries, but they strive to recover from the crisis nevertheless.</p>
+<p>The largest obstacle when drawing the D3 interactive plot is in fact getting the data and debug locally.
+We’ve learned that certain browser like Chrome doesn’t allow cross origin request, in other words, we
+can’t read data using local path. To solve this issue we used the url of raw json file we uploaded to github,
+and later after importing the package ajax, we are finally able to fetch the data successfully. As for
+limitations, the interactive plot we created can further implement a ‘Zoom-in’ feature, which allows the
+user to look at each time period in details.</p>
 
 </div>
             </section>
@@ -209,20 +215,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
