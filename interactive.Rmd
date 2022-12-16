@@ -1,12 +1,37 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
 # Interactive component
 
-## S&P 500 interactive candelstick chart in 2020
+## S&P 500 interactive candlestick chart in 2020
 
 <link rel=stylesheet href="style.css" type="text/css" media=screen>
+
+```{=html}
 <script src="https://d3js.org/d3.v7.js"></script>
+```
+```{=html}
 <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js' charset="utf-8"></script>
-<div id="plot"></div>
+```
+::: {#plot}
+:::
+
+```{=html}
 <script src="candle.js"></script>
+```
 
 ## Analysis and justification
 
+For the interactive chart, we decided to re-plot the S&P 500 candlestick
+chart in 2020 for a better observation of the index. We add the
+mouse-over interaction to display the exact data of each "candle" of a
+trading day, including the open, close, high, and low prices. With the
+exact data displayed, we can observe the amount of drop downs more
+directly. For example, the largest drop down happened around March 11
+and 12, when the price of S&P 500 decreased from approximately 2800 to
+2480 in two days (around $12.85$%). Such shock of the US market is
+unprecedented in the last ten years, showing that the US market reacted
+drastically to the Covid-19.
