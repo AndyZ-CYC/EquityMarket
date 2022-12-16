@@ -164,13 +164,13 @@ plot_candlestick <- function(target_symbol, from, to) {
                      colour = GreenRed)) + 
     scale_color_manual(values = c("Forest Green", "Red")) + 
     ggtitle(paste0(target_symbol, " Index from ", from, " to ", to)) + 
-    theme(text = element_text(size = 20), 
+    theme(text = element_text(size = 12), 
           legend.position = "none", 
           axis.title.y = element_blank())
 }
 ```
 
-```{r, fig.width=7, fig.height=4.5}
+```{r, out.width="100%", out.height="80%"}
 plot_candlestick("S&P_500", "2020-01-01", "2020-12-31")
 ```
 
@@ -185,7 +185,7 @@ the others, indicating a volatile market. However, we can notice that
 the market recovered gradually in the following six months and continued
 with a growing trend.
 
-```{r, fig.width=7, fig.height=4.5}
+```{r, out.width="100%", out.height="80%"}
 plot_candlestick("Nikkei_225", "2020-01-01", "2020-12-31")
 ```
 
@@ -199,7 +199,7 @@ shrank in a more stable path. In addition, the price of the index
 recovered from the impact within only approximately 4 month, which is
 shorter than the US market.
 
-```{r, fig.width=7, fig.height=4.5}
+```{r, out.width="100%", out.height="80%"}
 plot_candlestick("SSE_Composite", "2020-01-01", "2020-12-31")
 ```
 
@@ -215,19 +215,20 @@ the potential stimulation of policies.
 
 ### Time Series Line charts
 
-```{r, fig.width=7, fig.height=4.5}
+```{r, out.width="100%", out.height="100%"}
 adj_price_minmax |>
   mutate(symbol = forcats::fct_reorder2(symbol, date, norm_price)) |>
   ggplot(aes(x = date, y = norm_price, color = symbol)) +
-  geom_point(size = 1, fill = "black", shape = 21) + 
-  geom_line(lwd = 0.7) + 
+  geom_point(size = 0.6, fill = "black", shape = 21) + 
+  geom_line(lwd = 0.4) + 
   facet_wrap(~symbol, nrow = 3, scales = "free_y") + 
-  geom_smooth(method = "loess", span = .2, se = FALSE, linewidth = 0.7, colour = "black", linetype = 1) +
+  geom_smooth(method = "loess", span = .2, se = FALSE, linewidth = 0.5, colour = "black", linetype = 1) +
   ggtitle("Normalized prices of indices from 2016 to 2020") + 
   labs(x = "", y = "normalized price") +
   theme_grey(16) +
-  theme(text = element_text(size = 18), 
-        legend.key.size = unit(1, 'cm'))
+  theme(text = element_text(size = 9), 
+        legend.key.size = unit(0.5, 'cm'), 
+        legend.box.spacing = unit(0.2, 'cm'))
 ```
 
 By aligning the three indices together, there are several things that we can easily notice. 
@@ -242,20 +243,21 @@ relatively insignificant comparing with the overall performance of SSE Composite
 To give the impacts of Covid-19 on markets a closer look, we focus on the data in 2020 and 
 created another similar plot:
 
-```{r, fig.width=7, fig.height=4.5, warning = FALSE}
+```{r, out.width="100%", out.height="100%"}
 adj_price_minmax |>
   filter(date >= "2020-01-01") |>
   mutate(symbol = forcats::fct_reorder2(symbol, date, norm_price)) |>
   ggplot(aes(x = date, y = norm_price, color = symbol)) +
-  geom_point(size = 1.5, fill = "black", shape = 21) + 
-  geom_line(lwd = 0.8) + 
+  geom_point(size = 0.7, fill = "black", shape = 21) + 
+  geom_line(lwd = 0.5) + 
   facet_wrap(~symbol, nrow = 3, scales = "free_y") + 
-  geom_smooth(method = "loess", span = .2, se = FALSE, linewidth = 0.8, colour = "black", linetype = 1) +
+  geom_smooth(method = "loess", span = .2, se = FALSE, linewidth = 0.5, colour = "black", linetype = 1) +
   ggtitle("Normalized prices of indices in 2020") + 
   labs(x = "", y = "normalized price") +
   theme_grey(16) +
-  theme(text = element_text(size = 18), 
-        legend.key.size = unit(1, 'cm'))
+  theme(text = element_text(size = 9), 
+        legend.key.size = unit(0.5, 'cm'), 
+        legend.box.spacing = unit(0.2, 'cm'))
 ```
 
 With the zoomed data, we can observe that although the overall trends of the markets 
@@ -271,7 +273,7 @@ Another method of displaying volatility and comparing impacts from the pandemic
 across three markets is to use daily returns. In the following part, the log daily 
 returns of the three indices are plotted separately to be observed. 
 
-```{r, fig.width=6, fig.height=3}
+```{r, out.width="100%", out.height="60%"}
 data_reg |>
   filter(symbol == "S&P_500") |>
   mutate(return = log(adjusted) - log(lag(adjusted))) |>
@@ -288,7 +290,7 @@ data_reg |>
   ggtitle("Log Returns of S&P 500 index before and during the pandemic") + 
   theme(legend.title = element_blank(), 
         axis.title.y = element_blank(), 
-        text = element_text(size = 14), 
+        text = element_text(size = 12), 
         legend.key.size = unit(0.8, 'cm'))
 ```
 
@@ -297,7 +299,7 @@ Before 2020, the log returns are represented with grey vertical bars and has a r
 low range. After the pandemic hit the market, the amplitude of log returns increased by 
 a large amount for several month till it drop back down to the normal level. 
 
-```{r, fig.width=6, fig.height=3}
+```{r, out.width="100%", out.height="60%"}
 data_reg |>
   filter(symbol == "Nikkei_225") |>
   mutate(return = log(adjusted) - log(lag(adjusted))) |>
@@ -314,7 +316,7 @@ data_reg |>
   ggtitle("Log Returns of Nikkei 225 index before and during the pandemic") + 
   theme(legend.title = element_blank(), 
         axis.title.y = element_blank(), 
-        text = element_text(size = 14), 
+        text = element_text(size = 12), 
         legend.key.size = unit(0.8, 'cm'))
 ```
 
@@ -323,7 +325,7 @@ S&P 500 in previous plots, it is still more volatile in normal days. If we look 
 the return plots along, we can say that the Japanese market is actually not impacted 
 as severe as the US market. 
 
-```{r, fig.width=6, fig.height=3}
+```{r, out.width="100%", out.height="60%"}
 data_reg |>
   filter(symbol == "SSE_Composite") |>
   mutate(return = log(adjusted) - log(lag(adjusted))) |>
@@ -340,7 +342,7 @@ data_reg |>
   ggtitle("Log Returns of SSE Composite index before and during the pandemic") + 
   theme(legend.title = element_blank(), 
         axis.title.y = element_blank(), 
-        text = element_text(size = 14), 
+        text = element_text(size = 12), 
         legend.key.size = unit(0.8, 'cm'))
 ```
 

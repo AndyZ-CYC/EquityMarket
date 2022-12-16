@@ -229,6 +229,9 @@ this will not influence our later analysis since we treat the trading days as co
 
 ## Data For Interactive D3 Graph
 
+For the interactive D3 Graph, we will re-plot the S&P 500 candlestick chart using 
+the data in 2020. The data is exported as a json file. 
+
 ```{r}
 data_d3 <- data_reg |>
   filter(symbol == "S&P_500") |>
