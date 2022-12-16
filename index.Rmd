@@ -7,3 +7,7 @@ site: bookdown::bookdown_site
 
 # Introduction
 
+March 2020, the sudden outbreak of COVID-19 pandemic incurs a freefall in stock prices.
+In the year since, everything hasn't been the same. Our lives, economies, societies and the fortunes of our businesses are experiencing drastic change through the ups and downs of stock price changes. During this darkest time, even the global economies and industries have taken a tremendous hit, not to mention the daily life of ordinary citizens. The equity market, a significant indicator of the economy, also reacted to the hits significantly and became highly volatile.
+
+This phenomenon provides an insight into diving deep the pandemic's impact on the world economy in a data-driven, chronological aspect. As a great representative of the performance of the markets, the equity market indices and its time series data become our emphasis for this research project. We will first try to explore the trends and impacts of the pandemic on the markets in different regions by looking at their general stock indices. After that, we will investigate and emphasize the extent and effects of the pandemic on 11 specific sectors in the U.S.
