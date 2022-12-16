@@ -352,7 +352,7 @@ of SSE Composite's daily returns remained on the approximately same level before
 during the pandemic. Hence, from this graph, we can further infer that the Chinese 
 market was the least influenced one by the pandemic among the three markets. 
 
-## Part 2
+## Equity market across sectors
 
 In the second part, we will look at all 11 sectors' performance in S&P 500 specifically
 to see how the pandemic may have influenced their stock prices. We will first create a
@@ -367,7 +367,8 @@ ggplot(data_sec, aes(x = adjusted, y = as.factor(sector), fill = factor(stat(qua
     quantiles = 4, quantile_lines = TRUE
   ) +
   scale_fill_viridis_d(name = "Quartiles") +
-  ggtitle("Ridgeline plots for 11 sectors from 2016 to 2020")
+  ggtitle("Ridgeline plots for 11 sectors from 2016 to 2020") + 
+  theme(axis.title.y = element_blank())
 ```
 This plot delivers several important information. First, there are multiple sectors with
 a fairly normal distribution. Utilities, Real Estate, Materials, Consumer Staples and Communication services
@@ -396,6 +397,7 @@ data_sec %>%
   scale_x_date(date_breaks="1 year", date_labels="%Y") +
   ggtitle("Line plots for 11 sectors from 2016 to 2020")
 ```
+
 In the above plot, there are two emphasis we want to address. First, the top three
 sector in adjusted price is exactly what we mentioned in the ridgeline plot with multimodality
 and a flat curve, which is Information Technology, Health Care, and Consumer Discretionary
@@ -413,6 +415,7 @@ data_sec |> filter(date >= "2020-01-01" & date <= "2020-12-31") |>
   scale_x_date(date_breaks="1 month", labels = date_format("%m")) +
   ggtitle("Line plots for 11 sectors in 2020")
 ```
+
 In this plot, we can further confirm that the more potential sectors with high stock prices
 took a larger hit during the pandemic, while such impact is lessen as the stock prices goes
 down for other sectors. For example, the adjusted price of Information Technology was around
@@ -421,17 +424,19 @@ adjusted price was around 150-175 at the start of March, but experienced a much 
 in price.
 
 ### Timeseries Smooth plots 
+
 ```{r out.width="100%", out.height="60%"}
 data_sec |> filter(date >= "2020-01-01" & date <= "2020-12-31") |>
 mutate(sector = fct_reorder2(sector, date, adjusted)) %>%
 ggplot(aes(date, adjusted, color=sector)) + 
   facet_wrap(~ sector, scales = 'free_x') +
-  geom_smooth(span = 0.12) + 
+  geom_smooth(span = 0.12, lwd = 0.75) + 
   labs(x = "Month") +
   scale_x_date(labels = date_format("%m")) +
   ggtitle("Faceted Smooth plots for 11 sectors in 2020") +
   theme(legend.position='none')
 ```
+
 In this plot, we used geom_smooth to generate smooth lines to approximate the previous line plot.
 We then reordered according to ending stock price of the final day. We can clearly observe that
 the extent of stock price drop during March for each sector is proportional/positively correlated with
