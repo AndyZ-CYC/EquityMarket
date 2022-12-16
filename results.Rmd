@@ -140,7 +140,7 @@ $Q_1 - 1.5*IQR$.
 ### Candlestick Charts
 
 To further observe the trends of the indices during the pandemic, we
-adapted a popular type of diagram when it comes to the stock analysis,
+adopted a popular type of diagram when it comes to the stock analysis,
 the Candlestick Charts. For the purpose of tidyness, we created a
 function to produce the candlestick chart for the given index and time
 range.
